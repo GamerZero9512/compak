@@ -28,7 +28,8 @@ jobs:
     - name: Verify archive
       run: test -e libhello.tar.xz
     - name: Verify contents
-      run: tar -tf libhello.tar.xz > contents.txt
+      run: |
+           tar -tf libhello.tar.xz > contents.txt
            grep '^compak.json$' contents.txt
            grep '^hello.c$' contents.txt
            grep '^hello.h$' contents.txt
@@ -36,7 +37,8 @@ jobs:
     - name: Install package
       run: sudo ./compak -i libhello.tar.xz
     - name: Check binaries
-      run: test -x /usr/local/bin/hello
+      run: |
+           test -x /usr/local/bin/hello
            test -e /usr/local/lib/libhello.a
            test -e /usr/local/include/hello.h
     - name: Run binary
