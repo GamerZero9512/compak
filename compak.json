@@ -1,0 +1,11 @@
+{
+  "name": "compak",
+  "compak-min": 1,
+  "deps": [],
+  "install": {
+    "bin": ["compak"],
+    "lib": [],
+    "include": []
+  },
+  "description": "A minimal source-based package manager"
+}
