@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y gcc clang make libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev
+    - name: Make
+      run: make CC=${{ matrix.compiler }}
+    - name: Package test
+      run: ./compak -p tests/libhello
+    - name: Verify archive
+      run: test -e libhello.tar.xz
+    - name: Verify contents
+      run: tar -tf libhello.tar.xz > contents.txt
+           grep '^compak.json$' contents.txt
+           grep '^hello.c$' contents.txt
+           grep '^hello.h$' contents.txt
+           grep '^Makefile$' contents.txt
+    - name: Install package
+      run: sudo ./compak -i libhello.tar.xz
+    - name: Check binaries
+      run: test -x /usr/local/bin/hello
+           test -e /usr/local/lib/libhello.a
+           test -e /usr/local/include/hello.h
+    - name: Run binary
+      run: |
+           output=$(/usr/local/bin/hello)
+           test "$output" = "Hello, world!"
+    - name: Check package registry
+      run: |
+           test -f /var/lib/compak/libhello/compak.json
+    - name: Check package listing
+      run: |
+           ./compak -l > packages.txt
+           grep '^libhello:' packages.txt
+    - name: Remove package
+      run: sudo ./compak -r libhello
+    - name: Verify removal
+      run: |
+           test ! -e /usr/local/bin/hello
+           test ! -e /var/lib/compak/hello

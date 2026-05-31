@@ -1,0 +1,12 @@
+{
+  "name": "libhello",
+  "description": "An example library to make writing hello world easier",
+  "compak-min": 1,
+  "deps": [],
+  "exclude": ["hello", "libhello.a", "hello.o"],
+  "install": {
+    "bin": ["hello"],
+    "lib": ["libhello.a"],
+    "include": ["hello.h"]
+  }
+}
