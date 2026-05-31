@@ -1,11 +1,12 @@
 {
   "name": "compak",
+  "description": "A minimal source-based package manager",
   "compak-min": 1,
   "deps": [],
+  "exclude": [".git", ".gitignore", "compak", "compak.tar.xz"],
   "install": {
     "bin": ["compak"],
     "lib": [],
     "include": []
-  },
-  "description": "A minimal source-based package manager"
+  }
 }

@@ -19,8 +19,3 @@ compak uses these libraries:
 - [libarchive](https://github.com/libarchive/libarchive)
 - [parson](https://github.com/kgabis/parson)
 - [libcurl](https://github.com/curl/curl/)
-
-want to try out compak? install then run this command:
-```
-sudo compak -i https://github.com/GamerZero9512/gamerzero9512.github.io/raw/refs/heads/main/compak.tar.xz
-```

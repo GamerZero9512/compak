@@ -6,11 +6,6 @@
     minimal source-based package manager
 */
 
-/*
-    TODO:
-    - Online installs
-*/
-
 #include <stdio.h>
 #include <unistd.h>
 #include <getopt.h>
@@ -24,6 +19,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <curl/curl.h>
+#include <regex.h>
 
 static struct option long_options[] = {
   {"help",    no_argument,       0, '?'},
@@ -483,14 +479,29 @@ int copy_file_to_archive(const char *path, struct archive *a) {
   return 0;
 }
 
+int regex_matches(const char *regex, const char *string) {
+  regex_t re;
+  int status;
+
+  status = regcomp(&re, regex, REG_EXTENDED);
+  if(status != 0) return 0;
+  status = regexec(&re, string, 0, NULL, 0);
+  regfree(&re);
+
+  return status == 0;
+}
+
 int packed_files = 0;
 
-int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude) {
+int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude,
+             JSON_Array *regex) {
   DIR *dir;
   struct dirent *e;
   struct stat st;
   char path[PATH_MAX];
   char arcpath[PATH_MAX];
+  size_t i, regexes;
+  int matches;
 
   snprintf(path, sizeof(path), "%s/%s", base, rel);
   dir = opendir(path);
@@ -511,6 +522,12 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
       snprintf(arcpath, sizeof(arcpath), "%s/%s", rel, e->d_name);
     else
       snprintf(arcpath, sizeof(arcpath), "%s", e->d_name);
+    /* validate excludes */
+    regexes = json_array_get_count(regex);
+    matches = 0;
+    for(i = 0; i < regexes; i++)
+      if(regex_matches(json_array_get_string(regex, i), arcpath)) matches = 1;
+    if(matches) continue;
     if(S_ISDIR(st.st_mode)) {
       struct archive_entry *dirent = archive_entry_new();
       archive_entry_set_pathname(dirent, arcpath);
@@ -518,7 +535,7 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
       archive_entry_set_perm(dirent, st.st_mode);
       archive_write_header(a, dirent);
       archive_entry_free(dirent);
-      pack_dir(a, base, arcpath, NULL);
+      pack_dir(a, base, arcpath, NULL, regex);
     } else if(S_ISREG(st.st_mode)) {
       if(exclude) if(!strcmp(arcpath, exclude)) continue;
       struct archive_entry *entry = archive_entry_new();
@@ -544,7 +561,8 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
 
 void compak_package(const char *folder) {
   JSON_Value *root;
-  JSON_Object *obj; 
+  JSON_Object *obj;
+  JSON_Array *exclude;
   char output[PATH_MAX];
   char json_path[PATH_MAX];
   struct archive *a;
@@ -622,6 +640,12 @@ void compak_package(const char *folder) {
       valid = 0;
     }
 
+    exclude = json_object_get_array(obj, "exclude");
+    if(!exclude) {
+      fprintf(stderr, "%s: missing field 'exclude'\n", compak_prefix);
+      valid = 0;
+    }
+
     if(!valid) {
       json_value_free(root);
       fputc('\n', stdout);
@@ -645,7 +669,7 @@ void compak_package(const char *folder) {
     return;
   }
 
-  pack_dir(a, folder, "", output);
+  pack_dir(a, folder, "", output, exclude);
 
   archive_write_close(a);
   archive_write_free(a);
