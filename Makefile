@@ -4,7 +4,7 @@ FLAGS ?=
 LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl
 SAFE ?= -Wall -Wextra -pedantic
 
-.PHONY: all debug clean solo
+.PHONY: all debug clean solo install
 
 all: compak
 
@@ -23,5 +23,10 @@ lib/libparson.a: parson.o
 parson.o: src/parson.c include/parson.h
 	$(CC) -c src/parson.c -Iinclude $(SAFE) -o parson.o
 
-solo: all
+solo: compak
 	rm -f parson.o lib/libparson.a
+
+install: compak
+	./compak -p .
+	sudo ./compak -i compak.tar.xz
+	rm compak.tar.xz

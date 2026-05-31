@@ -4,6 +4,16 @@
     +--------+
 
     minimal source-based package manager
+
+    TODO:
+      - Add 'install.man' field:
+        "install": {
+          "man": {
+            "1": ["docs/compak.1"],
+            // All manpages are optional so you
+            // don't have to spam "1" "2" "3" ...
+          }
+        }
 */
 
 #include <stdio.h>
@@ -20,6 +30,10 @@
 #include <sys/wait.h>
 #include <curl/curl.h>
 #include <fnmatch.h>
+
+#define COMPAK_VERSION 1
+/* bump this if compatibility
+   with older versions breaks*/
 
 static struct option long_options[] = {
   {"help",    no_argument,       0, '?'},
@@ -348,6 +362,21 @@ void compak_install(const char *name) {
 
   root = json_parse_file("compak.json");
   obj = json_value_get_object(root);
+
+  /* verify we're on the right version of compak */
+  if(json_object_has_value(obj, "compak-min"))
+    if(json_object_get_number(obj, "compak-min") > COMPAK_VERSION) {
+      fprintf(stderr, "%s: incompatible compak version\n", compak_prefix);
+      json_value_free(root);
+      return;
+    }
+  if(json_object_has_value(obj, "compak-max"))
+    if(json_object_get_number(obj, "compak-max") < COMPAK_VERSION) {
+      fprintf(stderr, "%s: incompatible compak version\n", compak_prefix);
+      json_value_free(root);
+      return;
+    }
+
   install = json_object_get_object(obj, "install");
 
   install_array(json_object_get_array(install, "bin"), dir, "/usr/local/bin");
