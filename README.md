@@ -3,6 +3,7 @@ compak is a simple, minimal source-based package manager for GNU/Linux.
 
 ![last commit](https://img.shields.io/github/last-commit/gamerzero9512/compak?color=blue)
 [![MIT license](https://img.shields.io/badge/license-MIT-yellow)](https://raw.githubusercontent.com/GamerZero9512/compak/refs/heads/main/LICENSE)
+![Build status](https://img.shields.io/github/actions/workflow/status/gamerzero9512/compak/.github%2Fworkflows%2Fc-cpp.yml)
 
 ```
 usage: compak <options>
