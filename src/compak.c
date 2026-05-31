@@ -1,3 +1,16 @@
+/*
+    +--------+
+    | compak |
+    +--------+
+
+    minimal source-based package manager
+*/
+
+/*
+    TODO:
+    - Online installs
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <getopt.h>
@@ -21,6 +34,15 @@ static struct option long_options[] = {
 };
 
 char *compak_prefix = NULL;
+
+int is_installed(const char *name) {
+  char path[PATH_MAX];
+  struct stat st;
+
+  snprintf(path, sizeof(path), "/var/lib/compak/%s", name);
+
+  return (stat(path, &st) == 0 && S_ISDIR(st.st_mode));
+}
 
 DIR *open_pkgreg(void) {
   struct stat st;
@@ -265,6 +287,8 @@ void compak_install(const char *name) {
   int status;
   JSON_Value *root;
   JSON_Object *obj, *install;
+  JSON_Array *deps;
+  size_t i, n;
   char template[] = "/tmp/compak-XXXXXX";
   char *dir = mkdtemp(template);
   char *pkg_name;
@@ -329,8 +353,17 @@ void compak_install(const char *name) {
   install_array(json_object_get_array(install, "lib"), dir, "/usr/local/lib");
   install_array(json_object_get_array(install, "include"), dir, "/usr/local/include");
 
-  if(json_array_get_count(json_object_get_array(obj, "deps")) != 0)
-    fprintf(stderr, "%s: dependencies not implemented\n", compak_prefix);
+  deps = json_object_get_array(obj, "deps");
+  n = json_array_get_count(deps);
+  for(i = 0; i < n; i++) {
+    const char *dep = json_array_get_string(deps, i);
+    if(!dep) continue;
+    if (!is_installed(dep)) {
+      fprintf(stderr, "%s: missing dependency '%s' for package '%s'\n", compak_prefix, dep, name);
+      json_value_free(root);
+      return;
+    }
+  }
   
   pkg_name = strdup(json_object_get_string(obj, "name"));
 
@@ -445,6 +478,8 @@ int copy_file_to_archive(const char *path, struct archive *a) {
   return 0;
 }
 
+int packed_files = 0;
+
 int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude) {
   DIR *dir;
   struct dirent *e;
@@ -482,6 +517,9 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
     } else if(S_ISREG(st.st_mode)) {
       if(exclude) if(!strcmp(arcpath, exclude)) continue;
       struct archive_entry *entry = archive_entry_new();
+      printf("\r\x1b[2Kpackaging file '%s'", arcpath);
+      fflush(stdout);
+      packed_files++;
       archive_entry_set_pathname(entry, arcpath);
       archive_entry_set_size(entry, st.st_size);
       archive_entry_set_filetype(entry, AE_IFREG);
@@ -508,11 +546,15 @@ void compak_package(const char *folder) {
   DIR *dir;
   const char *name;
 
+  packed_files = 0;
+  printf("validating JSON");
+  fflush(stdout);
+
   /* validate JSON */
   snprintf(json_path, sizeof(json_path), "%s/compak.json", folder);
   root = json_parse_file(json_path);
   if(!root) {
-    fprintf(stderr, "%s: failed to parse 'compak.json'\n", compak_prefix);
+    fprintf(stderr, "\n%s: failed to parse 'compak.json'\n", compak_prefix);
     return;
   }
   obj = json_value_get_object(root);
@@ -577,6 +619,7 @@ void compak_package(const char *folder) {
 
     if(!valid) {
       json_value_free(root);
+      fputc('\n', stdout);
       return;
     }
   }
@@ -602,6 +645,8 @@ void compak_package(const char *folder) {
   archive_write_close(a);
   archive_write_free(a);
   json_value_free(root);
+
+  printf("\r\x1b[2Ksuccessfully packaged %d files\n", packed_files);
 }
 
 void compak_help(void) {
