@@ -23,6 +23,7 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <curl/curl.h>
 
 static struct option long_options[] = {
   {"help",    no_argument,       0, '?'},
@@ -280,6 +281,10 @@ void install_array(JSON_Array *arr, const char *src_dir, const char *dst_dir) {
     else
       printf("%s: installed '%s'\n", compak_prefix, file);
   }
+}
+
+int is_url(const char *s) {
+  return (strncmp(s, "http://", 7) == 0 || strncmp(s, "https://", 8) == 0);
 }
 
 void compak_install(const char *name) {
@@ -664,6 +669,43 @@ void compak_help(void) {
     , compak_prefix);
 }
 
+size_t write_cb(void *ptr, size_t size, size_t nmemb, void *stream) {
+  return fwrite(ptr, size, nmemb, (FILE*)stream);
+}
+
+int download_to_file(const char *url, const char *out_path) {
+  CURL *curl = curl_easy_init();
+  if(!curl) return 1;
+  FILE *fp = fopen(out_path, "wb");
+  if(!fp) return 1;
+  curl_easy_setopt(curl, CURLOPT_URL, url);
+  curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_cb);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+  CURLcode res = curl_easy_perform(curl);
+  fclose(fp);
+  curl_easy_cleanup(curl);
+  return (res == CURLE_OK) ? 0 : 1;
+}
+
+void compak_install_url(const char *url) {
+  char tmpdir[] = "/tmp/compak-XXXXXX";
+  char filepath[PATH_MAX];
+  if(!mkdtemp(tmpdir)) {
+    fprintf(stderr, "%s: error creating temporary directory\n", compak_prefix);
+    return;
+  }
+  snprintf(filepath, sizeof(filepath), "%s/pkg.tar.xz", tmpdir);
+  fprintf(stderr, "%s: downloading '%s'\n", compak_prefix, url);
+  if(download_to_file(url, filepath)) {
+    fprintf(stderr, "%s: download failed\n", compak_prefix);
+    return;
+  }
+  fprintf(stderr, "%s: installing from '%s'\n", compak_prefix, filepath);
+  compak_install(filepath);
+  return;
+}
+
 int main(int argc, char *argv[]) {
   int opt;
 
@@ -681,7 +723,8 @@ int main(int argc, char *argv[]) {
           fprintf(stderr, "%s: install must run as root\n", compak_prefix);
           return 1;
         }
-        compak_install(optarg);
+        if(is_url(optarg)) compak_install_url(optarg);
+        else compak_install(optarg);
         break;
       case 'r':
         if(geteuid() != 0) {

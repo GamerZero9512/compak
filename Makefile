@@ -1,7 +1,7 @@
 CC ?= cc
 FLAGS ?=
 
-LIBS := -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson
+LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl
 SAFE ?= -Wall -Wextra -pedantic
 
 .PHONY: all debug clean solo
