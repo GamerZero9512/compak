@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <curl/curl.h>
-#include <regex.h>
+#include <fnmatch.h>
 
 static struct option long_options[] = {
   {"help",    no_argument,       0, '?'},
@@ -479,18 +479,6 @@ int copy_file_to_archive(const char *path, struct archive *a) {
   return 0;
 }
 
-int regex_matches(const char *regex, const char *string) {
-  regex_t re;
-  int status;
-
-  status = regcomp(&re, regex, REG_EXTENDED);
-  if(status != 0) return 0;
-  status = regexec(&re, string, 0, NULL, 0);
-  regfree(&re);
-
-  return status == 0;
-}
-
 int packed_files = 0;
 
 int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude,
@@ -526,7 +514,7 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
     regexes = json_array_get_count(regex);
     matches = 0;
     for(i = 0; i < regexes; i++)
-      if(regex_matches(json_array_get_string(regex, i), arcpath)) matches = 1;
+      if(fnmatch(json_array_get_string(regex, i), arcpath, 0) == 0) matches = 1;
     if(matches) continue;
     if(S_ISDIR(st.st_mode)) {
       struct archive_entry *dirent = archive_entry_new();
