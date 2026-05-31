@@ -184,7 +184,7 @@ int extract_archive(const char *archive_path, const char *dest_dir) {
   while((r = archive_read_next_header(a, &entry)) == ARCHIVE_OK) {
     const char *current = archive_entry_pathname(entry);
 
-    printf("\r\x1b[2Kextracting '%s'", current);
+    printf("\r\x1b[2K%s: extracting '%s'", compak_prefix, current);
 
     r = archive_write_header(disk, entry);
     if(r != ARCHIVE_OK) {
@@ -303,7 +303,7 @@ void compak_install(const char *name) {
     return;
   }
   if(!extract_archive(name, dir))
-    printf("\r\x1b[2Ksuccessfully extracted %d files\n", extracted_files);
+    printf("\r\x1b[2K%s: successfully extracted %d files\n", compak_prefix, extracted_files);
   else return;
 
   pid = fork();
@@ -407,7 +407,7 @@ void remove_artifacts(JSON_Array *arr, const char *prefix) {
       fprintf(stderr, "%s: path too long: '%s/%s'\n", compak_prefix, prefix, name);
       continue;
     }
-    if(unlink(path) == 0) printf("removed '%s'\n", path);
+    if(unlink(path) == 0) printf("%s: removed '%s'\n", compak_prefix, path);
     else if(errno == ENOENT) fprintf(stderr, "%s: missing artifact: '%s'\n", compak_prefix, path);
     else fprintf(stderr, "%s: failed to remove '%s': %s\n", compak_prefix, path, strerror(errno));
   }
@@ -527,7 +527,7 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
     } else if(S_ISREG(st.st_mode)) {
       if(exclude) if(!strcmp(arcpath, exclude)) continue;
       struct archive_entry *entry = archive_entry_new();
-      printf("\r\x1b[2Kpackaging file '%s'", arcpath);
+      printf("\r\x1b[2K%s: packaging file '%s'", compak_prefix, arcpath);
       fflush(stdout);
       packed_files++;
       archive_entry_set_pathname(entry, arcpath);
@@ -558,7 +558,7 @@ void compak_package(const char *folder) {
   const char *name;
 
   packed_files = 0;
-  printf("validating JSON");
+  printf("%s: validating JSON", compak_prefix);
   fflush(stdout);
 
   /* validate JSON */
@@ -663,7 +663,7 @@ void compak_package(const char *folder) {
   archive_write_free(a);
   json_value_free(root);
 
-  printf("\r\x1b[2Ksuccessfully packaged %d files\n", packed_files);
+  printf("\r\x1b[2K%s: successfully packaged %d files\n", compak_prefix, packed_files);
 }
 
 void compak_help(void) {
@@ -713,7 +713,6 @@ void compak_install_url(const char *url) {
     fprintf(stderr, "%s: download failed\n", compak_prefix);
     return;
   }
-  fprintf(stderr, "%s: installing from '%s'\n", compak_prefix, filepath);
   compak_install(filepath);
   return;
 }
