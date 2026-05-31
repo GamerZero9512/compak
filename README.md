@@ -18,3 +18,4 @@ options:
 compak uses these libraries:
 - [libarchive](https://github.com/libarchive/libarchive)
 - [parson](https://github.com/kgabis/parson)
+- [libcurl](https://github.com/curl/curl/)
