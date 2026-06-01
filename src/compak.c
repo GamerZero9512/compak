@@ -4,16 +4,6 @@
     +--------+
 
     minimal source-based package manager
-
-    TODO:
-      - Add 'install.man' field:
-        "install": {
-          "man": {
-            "1": ["docs/compak.1"],
-            // All manpages are optional so you
-            // don't have to spam "1" "2" "3" ...
-          }
-        }
 */
 
 #include <stdio.h>
