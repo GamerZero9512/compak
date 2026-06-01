@@ -12,7 +12,7 @@ compak: src/compak.c include/*.h lib/libarchive.a lib/libparson.a
 	$(CC) src/compak.c -Iinclude -Llib $(SAFE) $(FLAGS) $(LIBS) -O2 -o compak
 
 debug: src/compak.c
-	$(CC) src/compak.c -Iinclude -Llib $(SAFE) $(FLAGS) $(LIBS) -O0 -g3 -fsanitize=address,undefined,leak -o compak
+	$(CC) -fno-omit-frame-pointer src/compak.c -Iinclude -Llib $(SAFE) $(FLAGS) $(LIBS) -O0 -g3 -fsanitize=address,undefined,leak -o compak
 
 clean:
 	rm -f compak lib/libparson.a parson.o

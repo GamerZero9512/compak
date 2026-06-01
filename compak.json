@@ -7,6 +7,10 @@
   "install": {
     "bin": ["compak"],
     "lib": [],
-    "include": []
+    "include": [],
+    "man": {
+      "1": ["docs/compak.1"],
+      "2": ["docs/test.2"]
+    }
   }
 }

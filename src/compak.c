@@ -30,6 +30,7 @@
 #include <sys/wait.h>
 #include <curl/curl.h>
 #include <fnmatch.h>
+#include <libgen.h>
 
 #define COMPAK_VERSION 1
 /* bump this if compatibility
@@ -198,7 +199,7 @@ int extract_archive(const char *archive_path, const char *dest_dir) {
   while((r = archive_read_next_header(a, &entry)) == ARCHIVE_OK) {
     const char *current = archive_entry_pathname(entry);
 
-    printf("\r\x1b[2K%s: extracting '%s'", compak_prefix, current);
+    printf("%s: extracting '%s'\n", compak_prefix, current);
 
     r = archive_write_header(disk, entry);
     if(r != ARCHIVE_OK) {
@@ -269,17 +270,23 @@ int copy_file(const char *src, const char *dst) {
 }
 
 void install_array(JSON_Array *arr, const char *src_dir, const char *dst_dir) {
-  size_t n = json_array_get_count(arr);
+  size_t n;
   size_t i;
+
+  if(!arr) return;
+  n = json_array_get_count(arr);
 
   for(i = 0; i < n; i++) {
     const char *file = json_array_get_string(arr, i);
+    char *filename;
     struct stat st;
     char src[PATH_MAX];
     char dst[PATH_MAX];
 
-    snprintf(src, sizeof(src), "%s/%s", src_dir, file);
-    snprintf(dst, sizeof(dst), "%s/%s", dst_dir, file);
+    filename = strdup(file);
+    snprintf(src, sizeof(src), "%s/%s", src_dir, filename);
+    snprintf(dst, sizeof(dst), "%s/%s", dst_dir, basename(filename));
+    free(filename);
 
     if(stat(src, &st) != 0) {
       fprintf(stderr, "%s: missing artifact '%s'\n", compak_prefix, src);
@@ -301,7 +308,7 @@ void compak_install(const char *name) {
   pid_t pid;
   int status;
   JSON_Value *root;
-  JSON_Object *obj, *install;
+  JSON_Object *obj, *install, *man;
   JSON_Array *deps;
   size_t i, n;
   char template[] = "/tmp/compak-XXXXXX";
@@ -317,7 +324,7 @@ void compak_install(const char *name) {
     return;
   }
   if(!extract_archive(name, dir))
-    printf("\r\x1b[2K%s: successfully extracted %d files\n", compak_prefix, extracted_files);
+    printf("%s: successfully extracted %d files\n", compak_prefix, extracted_files);
   else return;
 
   pid = fork();
@@ -353,11 +360,52 @@ void compak_install(const char *name) {
     fprintf(stderr, "%s: error creating '/usr/local/include': %s\n", compak_prefix, strerror(errno));
     return;
   }
+  if(mkdir("/usr/local/share/man", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man1", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man1': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man2", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man2': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man3", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man3': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man4", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man4': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man5", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man5': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man6", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man6': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man7", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man7': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man8", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man8': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
+  if(mkdir("/usr/local/share/man/man9", 0755) == -1 && errno != EEXIST) {
+    fprintf(stderr, "%s: error creating '/usr/local/share/man9': %s\n", compak_prefix, strerror(errno));
+    return;
+  }
 
   /* copy stuff to folders 
        install.bin[] ------> /usr/local/bin
        install.lib[] ------> /usr/local/lib
        install.include[] --> /usr/local/include
+       install.man.*[] ----> /usr/local/share/man
   */
 
   root = json_parse_file("compak.json");
@@ -378,10 +426,21 @@ void compak_install(const char *name) {
     }
 
   install = json_object_get_object(obj, "install");
+  man = json_object_get_object(install, "man");
 
   install_array(json_object_get_array(install, "bin"), dir, "/usr/local/bin");
   install_array(json_object_get_array(install, "lib"), dir, "/usr/local/lib");
   install_array(json_object_get_array(install, "include"), dir, "/usr/local/include");
+  /* install manfiles */
+  install_array(json_object_get_array(man, "1"), dir, "/usr/local/share/man/man1");
+  install_array(json_object_get_array(man, "2"), dir, "/usr/local/share/man/man2");
+  install_array(json_object_get_array(man, "3"), dir, "/usr/local/share/man/man3");
+  install_array(json_object_get_array(man, "4"), dir, "/usr/local/share/man/man4");
+  install_array(json_object_get_array(man, "5"), dir, "/usr/local/share/man/man5");
+  install_array(json_object_get_array(man, "6"), dir, "/usr/local/share/man/man6");
+  install_array(json_object_get_array(man, "7"), dir, "/usr/local/share/man/man7");
+  install_array(json_object_get_array(man, "8"), dir, "/usr/local/share/man/man8");
+  install_array(json_object_get_array(man, "9"), dir, "/usr/local/share/man/man9");
 
   deps = json_object_get_array(obj, "deps");
   n = json_array_get_count(deps);
@@ -431,11 +490,16 @@ void remove_artifacts(JSON_Array *arr, const char *prefix) {
   for(i = 0; i < json_array_get_count(arr); i++) {
     const char *name = json_array_get_string(arr, i);
     char path[PATH_MAX];
+    char *filename, *base;
     if(!name) continue;
-    if(snprintf(path, sizeof(path), "%s/%s", prefix, name) >= (int)sizeof(path)) {
-      fprintf(stderr, "%s: path too long: '%s/%s'\n", compak_prefix, prefix, name);
+    filename = strdup(name);
+    base = basename(filename);
+    if(snprintf(path, sizeof(path), "%s/%s", prefix, base) >= (int)sizeof(path)) {
+      fprintf(stderr, "%s: path too long: '%s/%s'\n", compak_prefix, prefix, base);
+      free(filename);
       continue;
     }
+    free(filename);
     if(unlink(path) == 0) printf("%s: removed '%s'\n", compak_prefix, path);
     else if(errno == ENOENT) fprintf(stderr, "%s: missing artifact: '%s'\n", compak_prefix, path);
     else fprintf(stderr, "%s: failed to remove '%s': %s\n", compak_prefix, path, strerror(errno));
@@ -448,12 +512,12 @@ void compak_remove(const char *name) {
   char jsonfile[PATH_MAX];
 
   JSON_Value *root;
-  JSON_Object *obj, *install;
+  JSON_Object *obj, *install, *man;
 
   snprintf(path, sizeof(path), "/var/lib/compak/%s/compak.json", name);
   root = json_parse_file(path);
   if(!root) {
-    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, name);
+    fprintf(stderr, "%s: failed to parse manifest of '%s'\n", compak_prefix, name);
     return;
   }
   obj = json_value_get_object(root);
@@ -462,6 +526,17 @@ void compak_remove(const char *name) {
   remove_artifacts(json_object_get_array(install, "bin"), "/usr/local/bin");
   remove_artifacts(json_object_get_array(install, "lib"), "/usr/local/lib");
   remove_artifacts(json_object_get_array(install, "include"), "/usr/local/include");
+  
+  man = json_object_get_object(install, "man");
+  remove_artifacts(json_object_get_array(man, "1"), "/usr/local/share/man/man1");
+  remove_artifacts(json_object_get_array(man, "2"), "/usr/local/share/man/man2");
+  remove_artifacts(json_object_get_array(man, "3"), "/usr/local/share/man/man3");
+  remove_artifacts(json_object_get_array(man, "4"), "/usr/local/share/man/man4");
+  remove_artifacts(json_object_get_array(man, "5"), "/usr/local/share/man/man5");
+  remove_artifacts(json_object_get_array(man, "6"), "/usr/local/share/man/man6");
+  remove_artifacts(json_object_get_array(man, "7"), "/usr/local/share/man/man7");
+  remove_artifacts(json_object_get_array(man, "8"), "/usr/local/share/man/man8");
+  remove_artifacts(json_object_get_array(man, "9"), "/usr/local/share/man/man9");
 
   snprintf(pkgdir, sizeof(pkgdir), "/var/lib/compak/%s", name);
   snprintf(jsonfile, sizeof(jsonfile), "%s/compak.json", pkgdir);
@@ -470,6 +545,8 @@ void compak_remove(const char *name) {
   if(rmdir(pkgdir) != 0)
     fprintf(stderr, "%s: failed to remove package directory: %s\n", compak_prefix, strerror(errno));
   else printf("%s: removed from package registry\n", compak_prefix);
+
+  json_value_free(root);
 }
 
 const char *strip_prefix(const char *path, const char *folder) {
@@ -556,7 +633,7 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
     } else if(S_ISREG(st.st_mode)) {
       if(exclude) if(!strcmp(arcpath, exclude)) continue;
       struct archive_entry *entry = archive_entry_new();
-      printf("\r\x1b[2K%s: packaging file '%s'", compak_prefix, arcpath);
+      printf("%s: packaging file '%s'\n", compak_prefix, arcpath);
       fflush(stdout);
       packed_files++;
       archive_entry_set_pathname(entry, arcpath);
@@ -587,14 +664,14 @@ void compak_package(const char *folder) {
   const char *name;
 
   packed_files = 0;
-  printf("%s: validating JSON", compak_prefix);
+  printf("%s: validating JSON\n", compak_prefix);
   fflush(stdout);
 
   /* validate JSON */
   snprintf(json_path, sizeof(json_path), "%s/compak.json", folder);
   root = json_parse_file(json_path);
   if(!root) {
-    fprintf(stderr, "\n%s: failed to parse 'compak.json'\n", compak_prefix);
+    fprintf(stderr, "%s: failed to parse 'compak.json'\n", compak_prefix);
     return;
   }
   obj = json_value_get_object(root);
@@ -606,6 +683,7 @@ void compak_package(const char *folder) {
     JSON_Array *bin;
     JSON_Array *lib;
     JSON_Array *include;
+    JSON_Object *man;
 
     int valid = 1;
 
@@ -663,9 +741,14 @@ void compak_package(const char *folder) {
       valid = 0;
     }
 
+    man = json_object_get_object(install, "man");
+    if(!man) {
+      fprintf(stderr, "%s: missing field 'install.man'\n", compak_prefix);
+      valid = 0;
+    }
+
     if(!valid) {
       json_value_free(root);
-      fputc('\n', stdout);
       return;
     }
   }
@@ -692,7 +775,8 @@ void compak_package(const char *folder) {
   archive_write_free(a);
   json_value_free(root);
 
-  printf("\r\x1b[2K%s: successfully packaged %d files\n", compak_prefix, packed_files);
+  printf("%s: successfully packaged %d files\n", compak_prefix, packed_files);
+  closedir(dir);
 }
 
 void compak_help(void) {

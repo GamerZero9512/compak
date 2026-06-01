@@ -16,6 +16,13 @@ options:
   --package, -p <folder>  Pack folder into compak-ready archive
 ```
 
+To install compak, clone the source tree and run `make install`:
+```
+git clone https://github.com/gamerzero9512/compak.git
+cd compak
+make install
+```
+
 compak uses these libraries:
 - [libarchive](https://github.com/libarchive/libarchive)
 - [parson](https://github.com/kgabis/parson)
