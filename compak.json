@@ -9,8 +9,7 @@
     "lib": [],
     "include": [],
     "man": {
-      "1": ["docs/compak.1"],
-      "2": ["docs/test.2"]
+      "1": ["docs/compak.1"]
     }
   }
 }
