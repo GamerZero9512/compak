@@ -415,6 +415,18 @@ void compak_install(const char *name) {
       return;
     }
 
+  deps = json_object_get_array(obj, "deps");
+  n = json_array_get_count(deps);
+  for(i = 0; i < n; i++) {
+    const char *dep = json_array_get_string(deps, i);
+    if(!dep) continue;
+    if (!is_installed(dep)) {
+      fprintf(stderr, "%s: missing dependency '%s' for package '%s'\n", compak_prefix, dep, name);
+      json_value_free(root);
+      return;
+    }
+  }
+
   install = json_object_get_object(obj, "install");
   man = json_object_get_object(install, "man");
 
@@ -432,21 +444,9 @@ void compak_install(const char *name) {
   install_array(json_object_get_array(man, "8"), dir, "/usr/local/share/man/man8");
   install_array(json_object_get_array(man, "9"), dir, "/usr/local/share/man/man9");
 
-  deps = json_object_get_array(obj, "deps");
-  n = json_array_get_count(deps);
-  for(i = 0; i < n; i++) {
-    const char *dep = json_array_get_string(deps, i);
-    if(!dep) continue;
-    if (!is_installed(dep)) {
-      fprintf(stderr, "%s: missing dependency '%s' for package '%s'\n", compak_prefix, dep, name);
-      json_value_free(root);
-      return;
-    }
-  }
-
   pkg_name = strdup(json_object_get_string(obj, "name"));
 
-  if(!name) {
+  if(!pkg_name) {
     fprintf(stderr, "%s: missing package name\n", compak_prefix);
     json_value_free(root);
     return;
