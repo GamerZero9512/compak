@@ -1,6 +1,7 @@
 {
   "name": "libhello",
   "description": "An example library to make writing hello world easier",
+  "source": null,
   "compak-min": 1,
   "deps": [],
   "exclude": ["hello", "libhello.a", "hello.o"],
