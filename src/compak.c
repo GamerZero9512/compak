@@ -577,6 +577,7 @@ int copy_file_to_archive(const char *path, struct archive *a) {
 
 int packed_files = 0;
 
+
 int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude,
              JSON_Array *regex) {
   DIR *dir;
@@ -857,47 +858,14 @@ void compak_update_all(void) {
   while((entry = readdir(dir)) != NULL) {
     struct stat pkg_st;
     char path[PATH_MAX];
-    JSON_Value *root;
-    JSON_Object *obj;
-    JSON_Value *source;
-    const char *src;
 
     if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
     snprintf(path, sizeof(path), "/var/lib/compak/%s", entry->d_name);
     if(stat(path, &pkg_st) == -1) continue;
     if(!S_ISDIR(pkg_st.st_mode)) continue;
 
-    snprintf(path, sizeof(path), "/var/lib/compak/%s/compak.json", entry->d_name);
-
-    root = json_parse_file(path);
-    if(!root) {
-      fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, path);
-      continue;
-    }
-
-    obj = json_value_get_object(root);
-    source = json_object_get_value(obj, "source");
-    if(json_value_get_type(source) == JSONNull) {
-      fprintf(stderr, "%s: package '%s' is local-only\n", compak_prefix, entry->d_name);
-      json_value_free(root);
-      continue;
-    }
-    if(!source) {
-      fprintf(stderr, "%s: missing source field for package '%s'\n", compak_prefix, entry->d_name);
-      json_value_free(root);
-      continue;
-    }
-    src = json_value_get_string(source);
-    if(!src) {
-      fprintf(stderr, "%s: error finding source of '%s'\n", compak_prefix, entry->d_name);
-      json_value_free(root);
-      continue;
-    }
-
     printf("%s: updating '%s'\n", compak_prefix, entry->d_name);
-    compak_update(src);
-
-    json_value_free(root);
+    compak_update(entry->d_name);
   }
   closedir(dir);
 }
