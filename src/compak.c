@@ -7,8 +7,6 @@
 
     TODO:
       - Checksums
-      - "source" key in manifest to allow updating,
-        null if from local file only
 */
 
 #include <stdio.h>
@@ -304,6 +302,7 @@ void compak_install(const char *name) {
   char pkg_dir[PATH_MAX - 12]; /* to fit the /compak.json */
   char src[PATH_MAX];
   char dst[PATH_MAX];
+  char jsonpath[PATH_MAX];
 
   if(!dir) {
     fprintf(stderr, "%s: error creating temporary directory\n", compak_prefix);
@@ -387,14 +386,19 @@ void compak_install(const char *name) {
     return;
   }
 
-  /* copy stuff to folders 
+  /* copy stuff to folders
        install.bin[] ------> /usr/local/bin
        install.lib[] ------> /usr/local/lib
        install.include[] --> /usr/local/include
        install.man.*[] ----> /usr/local/share/man
   */
 
-  root = json_parse_file("compak.json");
+  snprintf(jsonpath, sizeof(jsonpath), "%s/compak.json", dir);
+  root = json_parse_file(jsonpath);
+  if(!root) {
+    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, jsonpath);
+    return;
+  }
   obj = json_value_get_object(root);
 
   /* verify we're on the right version of compak */
