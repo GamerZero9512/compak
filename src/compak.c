@@ -4,6 +4,11 @@
     +--------+
 
     minimal source-based package manager
+
+    TODO:
+      - Checksums
+      - "source" key in manifest to allow updating,
+        null if from local file only
 */
 
 #include <stdio.h>
@@ -25,15 +30,6 @@
 #define COMPAK_VERSION 1
 /* bump this if compatibility
    with older versions breaks*/
-
-static struct option long_options[] = {
-  {"help",    no_argument,       0, '?'},
-  {"install", required_argument, 0, 'i'},
-  {"remove",  required_argument, 0, 'r'},
-  {"list",    no_argument,       0, 'l'},
-  {"package", required_argument, 0, 'p'},
-  {0, 0, 0, 0}
-};
 
 char *compak_prefix = NULL;
 
@@ -443,7 +439,7 @@ void compak_install(const char *name) {
       return;
     }
   }
-  
+
   pkg_name = strdup(json_object_get_string(obj, "name"));
 
   if(!name) {
@@ -516,7 +512,7 @@ void compak_remove(const char *name) {
   remove_artifacts(json_object_get_array(install, "bin"), "/usr/local/bin");
   remove_artifacts(json_object_get_array(install, "lib"), "/usr/local/lib");
   remove_artifacts(json_object_get_array(install, "include"), "/usr/local/include");
-  
+
   man = json_object_get_object(install, "man");
   remove_artifacts(json_object_get_array(man, "1"), "/usr/local/share/man/man1");
   remove_artifacts(json_object_get_array(man, "2"), "/usr/local/share/man/man2");
@@ -530,7 +526,7 @@ void compak_remove(const char *name) {
 
   snprintf(pkgdir, sizeof(pkgdir), "/var/lib/compak/%s", name);
   snprintf(jsonfile, sizeof(jsonfile), "%s/compak.json", pkgdir);
-  
+
   unlink(jsonfile);
   if(rmdir(pkgdir) != 0)
     fprintf(stderr, "%s: failed to remove package directory: %s\n", compak_prefix, strerror(errno));
@@ -667,13 +663,14 @@ void compak_package(const char *folder) {
   obj = json_value_get_object(root);
 
   {
-    const char *description;
-    JSON_Array *deps;
+    const char  *description;
+    JSON_Array  *deps;
     JSON_Object *install;
-    JSON_Array *bin;
-    JSON_Array *lib;
-    JSON_Array *include;
+    JSON_Array  *bin;
+    JSON_Array  *lib;
+    JSON_Array  *include;
     JSON_Object *man;
+    JSON_Value  *source;
 
     int valid = 1;
 
@@ -689,7 +686,7 @@ void compak_package(const char *folder) {
       valid = 0;
     }
 
-    /* compak-min is numeric so we can't use ! */
+    /* compak-min is numeric so we can't use unary ! */
     if(!json_object_has_value(obj, "compak-min")) {
       fprintf(stderr, "%s: missing or invalid field 'compak-min'\n", compak_prefix);
       valid = 0;
@@ -737,6 +734,12 @@ void compak_package(const char *folder) {
       valid = 0;
     }
 
+    source = json_object_get_value(obj, "source");
+    if(!source) {
+      fprintf(stderr, "%s: missing field 'source'\n", compak_prefix);
+      valid = 0;
+    }
+
     if(!valid) {
       json_value_free(root);
       return;
@@ -767,21 +770,6 @@ void compak_package(const char *folder) {
 
   printf("%s: successfully packaged %d files\n", compak_prefix, packed_files);
   closedir(dir);
-}
-
-void compak_help(void) {
-  printf(
-    "compak: minimal source-based package manager\n"
-    "\n"
-    "usage: %s <options>\n"
-    "\n"
-    "options:\n"
-    "  --help,    -?           Show this help message\n"
-    "  --install, -i <package> Install the specified package\n"
-    "  --remove,  -r <package> Uninstall the specified package\n"
-    "  --list,    -l           List installed packages\n"
-    "  --package, -p <folder>  Pack folder into compak-ready archive\n"
-    , compak_prefix);
 }
 
 size_t write_cb(void *ptr, size_t size, size_t nmemb, void *stream) {
@@ -820,6 +808,129 @@ void compak_install_url(const char *url) {
   return;
 }
 
+void compak_update(const char *name) {
+  char path[PATH_MAX];
+  JSON_Value *root;
+  JSON_Object *obj;
+  JSON_Value *src;
+  const char *source;
+
+  snprintf(path, sizeof(path), "/var/lib/compak/%s/compak.json", name);
+
+  root = json_parse_file(path);
+  if(!root) {
+    fprintf(stderr, "%s: failed to parse 'compak.json'\n", compak_prefix);
+    return;
+  }
+  obj = json_value_get_object(root);
+  src = json_object_get_value(obj, "source");
+  if(!src) {
+    fprintf(stderr, "%s: missing source field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  if(json_value_get_type(src) == JSONNull) {
+    fprintf(stderr, "%s: package is local only\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  source = json_value_get_string(src);
+  if(!source) {
+    fprintf(stderr, "%s: error finding package source\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  compak_remove(name);
+  compak_install_url(source);
+  json_value_free(root);
+}
+
+void compak_update_all(void) {
+  struct dirent *entry;
+  DIR *dir = open_pkgreg();
+  if(!dir) return;
+
+  while((entry = readdir(dir)) != NULL) {
+    struct stat pkg_st;
+    char path[PATH_MAX];
+    JSON_Value *root;
+    JSON_Object *obj;
+    JSON_Value *source;
+    const char *src;
+
+    if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
+    snprintf(path, sizeof(path), "/var/lib/compak/%s", entry->d_name);
+    if(stat(path, &pkg_st) == -1) continue;
+    if(!S_ISDIR(pkg_st.st_mode)) continue;
+
+    snprintf(path, sizeof(path), "/var/lib/compak/%s/compak.json", entry->d_name);
+
+    root = json_parse_file(path);
+    if(!root) {
+      fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, path);
+      continue;
+    }
+
+    obj = json_value_get_object(root);
+    source = json_object_get_value(obj, "source");
+    if(json_value_get_type(source) == JSONNull) {
+      fprintf(stderr, "%s: package '%s' is local-only\n", compak_prefix, entry->d_name);
+      json_value_free(root);
+      continue;
+    }
+    if(!source) {
+      fprintf(stderr, "%s: missing source field for package '%s'\n", compak_prefix, entry->d_name);
+      json_value_free(root);
+      continue;
+    }
+    src = json_value_get_string(source);
+    if(!src) {
+      fprintf(stderr, "%s: error finding source of '%s'\n", compak_prefix, entry->d_name);
+      json_value_free(root);
+      continue;
+    }
+
+    printf("%s: updating '%s'\n", compak_prefix, entry->d_name);
+    compak_update(src);
+
+    json_value_free(root);
+  }
+  closedir(dir);
+}
+
+
+void compak_help(void) {
+  printf(
+    "compak: minimal source-based package manager\n"
+    "\n"
+    "usage: %s <options>\n"
+    "\n"
+    "options:\n"
+    "  --help,      -?           Show this help message\n"
+    "  --install,   -i <package> Install the specified package\n"
+    "  --remove,    -r <package> Uninstall the specified package\n"
+    "  --list,      -l           List installed packages\n"
+    "  --update,    -u <package> Update the specified package\n"
+    "  --update-all              Update all installed packages\n"
+    "  --package,   -p <folder>  Pack folder into compak-ready archive\n"
+    , compak_prefix);
+}
+
+enum {
+  OPT_UPDATE_ALL
+};
+
+struct option long_options[] = {
+  {"help",       no_argument,       0, '?'           },
+  {"install",    required_argument, 0, 'i'           },
+  {"remove",     required_argument, 0, 'r'           },
+  {"list",       no_argument,       0, 'l'           },
+  {"update",     required_argument, 0, 'u'           },
+  {"package",    required_argument, 0, 'p'           },
+  {"update-all", no_argument,       0, OPT_UPDATE_ALL},
+  {0, 0, 0, 0}
+};
+
 int main(int argc, char *argv[]) {
   int opt;
 
@@ -830,7 +941,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  while((opt = getopt_long(argc, argv, "i:r:l?p:", long_options, NULL)) != -1) {
+  while((opt = getopt_long(argc, argv, "?i:r:lu:p:", long_options, NULL)) != -1) {
     switch(opt) {
       case 'i':
         if(geteuid() != 0) {
@@ -855,6 +966,20 @@ int main(int argc, char *argv[]) {
         break;
       case 'p':
         compak_package(optarg);
+        break;
+      case 'u':
+        if(geteuid() != 0) {
+          fprintf(stderr, "%s: update must run as root\n", compak_prefix);
+          return 1;
+        }
+        compak_update(optarg);
+        break;
+      case OPT_UPDATE_ALL:
+        if(geteuid() != 0) {
+          fprintf(stderr, "%s: update must run as root\n", compak_prefix);
+          return 1;
+        }
+        compak_update_all();
         break;
       default:
         return 1; 

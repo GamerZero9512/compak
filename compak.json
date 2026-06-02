@@ -1,9 +1,10 @@
 {
   "name": "compak",
   "description": "A minimal source-based package manager",
+  "source": null,
   "compak-min": 1,
   "deps": [],
-  "exclude": [".git", ".gitignore", "compak", "compak.tar.xz"],
+  "exclude": [".git", ".gitignore", "compak", "compak.tar.xz", "tests", ".github", "lib/libparson.a", "parson.o"],
   "install": {
     "bin": ["compak"],
     "lib": [],
