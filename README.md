@@ -9,11 +9,14 @@ compak is a simple, minimal source-based package manager for GNU/Linux.
 usage: compak <options>
 
 options:
-  --help,    -?           Show this help message
-  --install, -i <package> Install the specified package
-  --remove,  -r <package> Uninstall the specified package
-  --list,    -l           List installed packages
-  --package, -p <folder>  Pack folder into compak-ready archive
+  --help,      -?           Show this help message
+  --install,   -i <package> Install the specified package
+  --remove,    -r <package> Uninstall the specified package
+  --list,      -l           List installed packages
+  --update,    -u <package> Update the specified package
+  --update-all              Update all installed packages
+  --package,   -p <folder>  Pack folder into compak-ready archive
+
 ```
 
 To install compak, clone the source tree and run `make install`:
