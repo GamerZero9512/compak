@@ -9,7 +9,7 @@ compak \- minimal source-based package manager
 
 .SH DESCRIPTION
 .B compak
-is a minimal source-based package manager which compiles the program at install time
+is a minimal source-based package manager which compiles the package from source at install time
 
 .SH OPTIONS
 .TP
@@ -35,6 +35,10 @@ Update the specified package
 .TP
 .BR --update-all
 Update all installed packages
+
+.TP
+.BR --clean
+Remove compak temporary files
 
 .TP
 .BR --package ", " -p " " <folder>

@@ -7,7 +7,12 @@
 
     TODO:
       - Checksums
+      - Use "make": [ build steps ] - use (mandatory) custom build
+      - Compile libarchive/libcurl on compak make (from src)
 */
+
+/* required for ftw for some reason */
+#define _XOPEN_SOURCE 700
 
 #include <stdio.h>
 #include <unistd.h>
@@ -24,10 +29,11 @@
 #include <curl/curl.h>
 #include <fnmatch.h>
 #include <libgen.h>
+#include <ftw.h>
 
 #define COMPAK_VERSION 1
 /* bump this if compatibility
-   with older versions breaks*/
+   with older versions breaks */
 
 char *compak_prefix = NULL;
 
@@ -870,6 +876,46 @@ void compak_update_all(void) {
   closedir(dir);
 }
 
+int rm(const char *f, const struct stat *s, int t, struct FTW *ftw) {
+  (void)s;
+  (void)t;
+  (void)ftw;
+  printf("%s: removing '%s'\n", compak_prefix, f);
+  return remove(f);
+}
+
+void compak_clean(void) {
+  DIR *dir;
+  struct dirent *entry;
+
+  dir = opendir("/tmp");
+  if(!dir) {
+    fprintf(stderr, "%s: error opening '/tmp'\n", compak_prefix);
+    return;
+  }
+
+  while((entry = readdir(dir)) != NULL) {
+    struct stat st;
+    char path[PATH_MAX];
+
+    if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+      continue;
+
+    snprintf(path, sizeof(path), "/tmp/%s", entry->d_name);
+
+    if(stat(path, &st) == -1) {
+      fprintf(stderr, "%s: error statting '%s'\n", compak_prefix, path);
+      continue;
+    }
+
+    if(!S_ISDIR(st.st_mode)) continue;
+    if(fnmatch("compak-*", entry->d_name, 0) != 0) continue;
+
+    nftw(path, rm, 64, FTW_DEPTH | FTW_PHYS);
+  }
+
+  closedir(dir);
+}
 
 void compak_help(void) {
   printf(
@@ -884,12 +930,14 @@ void compak_help(void) {
     "  --list,      -l           List installed packages\n"
     "  --update,    -u <package> Update the specified package\n"
     "  --update-all              Update all installed packages\n"
+    "  --clean                   Remove compak temporary files\n"
     "  --package,   -p <folder>  Pack folder into compak-ready archive\n"
     , compak_prefix);
 }
 
 enum {
-  OPT_UPDATE_ALL
+  OPT_UPDATE_ALL,
+  OPT_CLEAN
 };
 
 struct option long_options[] = {
@@ -899,6 +947,7 @@ struct option long_options[] = {
   {"list",       no_argument,       0, 'l'           },
   {"update",     required_argument, 0, 'u'           },
   {"package",    required_argument, 0, 'p'           },
+  {"clean",      no_argument,       0, OPT_CLEAN     },
   {"update-all", no_argument,       0, OPT_UPDATE_ALL},
   {0, 0, 0, 0}
 };
@@ -952,6 +1001,9 @@ int main(int argc, char *argv[]) {
           return 1;
         }
         compak_update_all();
+        break;
+      case OPT_CLEAN:
+        compak_clean();
         break;
       default:
         return 1; 
