@@ -1003,6 +1003,10 @@ int main(int argc, char *argv[]) {
         compak_update_all();
         break;
       case OPT_CLEAN:
+        if(geteuid() != 0) {
+          fprintf(stderr, "%s: clean must run as root\n", compak_prefix);
+          return 1;
+        }
         compak_clean();
         break;
       default:
