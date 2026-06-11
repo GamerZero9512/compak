@@ -4,6 +4,7 @@
   "source": null,
   "compak-min": 1,
   "deps": [],
+  "build": [["make"]],
   "exclude": ["hello", "libhello.a", "hello.o"],
   "install": {
     "bin": ["hello"],
