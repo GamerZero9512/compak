@@ -7,7 +7,7 @@
 
     TODO:
       - Checksums
-      - Use "make": [ build steps ] - use (mandatory) custom build
+      - Finish build field - note at :351
       - Compile libarchive/libcurl on compak make (from src)
 */
 
@@ -32,8 +32,8 @@
 #include <ftw.h>
 
 #define COMPAK_VERSION 1
-/* bump this if compatibility
-   with older versions breaks */
+/* bump this if compatibility with
+   older versions breaks completely */
 
 char *compak_prefix = NULL;
 
@@ -299,7 +299,7 @@ void compak_install(const char *name) {
   int status;
   JSON_Value *root;
   JSON_Object *obj, *install, *man;
-  JSON_Array *deps;
+  JSON_Array *deps, *build;
   size_t i, n;
   char template[] = "/tmp/compak-XXXXXX";
   char *dir = mkdtemp(template);
@@ -318,25 +318,70 @@ void compak_install(const char *name) {
     printf("%s: successfully extracted %d files\n", compak_prefix, extracted_files);
   else return;
 
-  pid = fork();
-  if(pid < 0) {
-    fprintf(stderr, "%s: process creation failure\n", compak_prefix);
+  snprintf(jsonpath, sizeof(jsonpath), "%s/compak.json", dir);
+  root = json_parse_file(jsonpath);
+  if(!root) {
+    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, jsonpath);
+    return;
+  }
+  obj = json_value_get_object(root);
+
+  build = json_object_get_array(obj, "build");
+
+  size_t count;
+  size_t cmd_i;
+
+  if(!build) {
+    fprintf(stderr, "%s: missing field 'build'\n", compak_prefix);
     return;
   }
 
-  if(pid == 0) {
-    char *argv[] = {"make", NULL};
-    if(chdir(dir) != 0) {
-      fprintf(stderr, "%s: error changing directory: %s\n", compak_prefix, strerror(errno));
+  count = json_array_get_count(build);
+  for(cmd_i = 0; cmd_i < count; cmd_i++) {
+    JSON_Array *json_argv = json_array_get_array(build, cmd_i);
+    size_t argc, arg_i;
+    char **argv;
+    if(!json_argv) {
+      fprintf(stderr, "%s: error getting build command\n", compak_prefix);
+      return;
+    }
+    argc = json_array_get_count(json_argv);
+    argv = malloc((argc + 1) * sizeof(*argv));
+    if(!argv) {
+      fprintf(stderr, "%s: error allocating memory: %s\n", compak_prefix, strerror(errno));
+      return;
+    }
+    for(arg_i = 0; arg_i < argc; arg_i++) {
+      argv[arg_i] = (char*)json_array_get_string(json_argv, arg_i);
+      if(!argv[arg_i]) {
+        fprintf(stderr, "%s: error getting build command %zu\n", compak_prefix, arg_i);
+        free(argv);
+        return;
+      }
+    }
+    argv[argc] = NULL;
+
+    pid = fork();
+    if(pid < 0) {
+      fprintf(stderr, "%s: process creation failure\n", compak_prefix);
+      return;
+    }
+
+    if(pid == 0) {
+      if(chdir(dir) != 0) {
+        fprintf(stderr, "%s: error changing directory: %s\n", compak_prefix, strerror(errno));
+        _exit(1);
+      }
+      execvp(argv[0], argv);
+      fprintf(stderr, "%s: error compiling package\n", compak_prefix);
       _exit(1);
     }
-    execvp("make", argv);
-    fprintf(stderr, "%s: error making\n", compak_prefix);
-    _exit(1);
-  }
-  if(waitpid(pid, &status, 0) < 0) {
-    fprintf(stderr, "%s: failure waiting for compilation\n", compak_prefix);
-    return;
+    free(argv);
+
+    if(waitpid(pid, &status, 0) < 0) {
+      fprintf(stderr, "%s: failure waiting for compilation\n", compak_prefix);
+      return;
+    }
   }
 
   if(mkdir("/usr/local/bin", 0755) == -1 && errno != EEXIST) {
@@ -399,6 +444,8 @@ void compak_install(const char *name) {
        install.man.*[] ----> /usr/local/share/man
   */
 
+  /* moved upwards:
+
   snprintf(jsonpath, sizeof(jsonpath), "%s/compak.json", dir);
   root = json_parse_file(jsonpath);
   if(!root) {
@@ -406,6 +453,8 @@ void compak_install(const char *name) {
     return;
   }
   obj = json_value_get_object(root);
+
+  */
 
   /* verify we're on the right version of compak */
   if(json_object_has_value(obj, "compak-min"))
