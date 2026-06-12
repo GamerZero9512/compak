@@ -16,6 +16,7 @@ options:
   --update,    -u <package> Update the specified package
   --update-all              Update all installed packages
   --package,   -p <folder>  Pack folder into compak-ready archive
+  --manifest,  -m <file>    Set manifest file name for packaging
 ```
 
 To install compak, clone the source tree and run `make install`:

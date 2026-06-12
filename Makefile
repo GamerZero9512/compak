@@ -4,7 +4,7 @@ FLAGS ?=
 LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl
 SAFE ?= -Wall -Wextra -pedantic
 
-.PHONY: all debug clean solo install
+.PHONY: all debug clean solo install debuginstall
 
 all: compak
 
@@ -28,5 +28,10 @@ solo: compak
 
 install: compak
 	./compak -p .
+	sudo ./compak -i compak.tar.xz
+	rm compak.tar.xz
+
+debuginstall: debug
+	./compak -m debug.json -p .
 	sudo ./compak -i compak.tar.xz
 	rm compak.tar.xz

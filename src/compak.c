@@ -7,8 +7,6 @@
 
     TODO:
       - Checksums
-      - Finish build field - note at :351
-      - Compile libarchive/libcurl on compak make (from src)
 */
 
 /* required for ftw for some reason */
@@ -632,7 +630,6 @@ int copy_file_to_archive(const char *path, struct archive *a) {
 
 int packed_files = 0;
 
-
 int pack_dir(struct archive *a, const char *base, const char *rel, const char *exclude,
              JSON_Array *regex) {
   DIR *dir;
@@ -699,6 +696,8 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
   return 0;
 }
 
+char *manifest_file = "compak.json";
+
 void compak_package(const char *folder) {
   JSON_Value *root;
   JSON_Object *obj;
@@ -714,10 +713,10 @@ void compak_package(const char *folder) {
   fflush(stdout);
 
   /* validate JSON */
-  snprintf(json_path, sizeof(json_path), "%s/compak.json", folder);
+  snprintf(json_path, sizeof(json_path), "%s/%s", folder, manifest_file);
   root = json_parse_file(json_path);
   if(!root) {
-    fprintf(stderr, "%s: failed to parse 'compak.json'\n", compak_prefix);
+    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, manifest_file);
     return;
   }
   obj = json_value_get_object(root);
@@ -981,6 +980,7 @@ void compak_help(void) {
     "  --update-all              Update all installed packages\n"
     "  --clean                   Remove compak temporary files\n"
     "  --package,   -p <folder>  Pack folder into compak-ready archive\n"
+    "  --manifest,  -m <file>    Set manifest file name for packaging\n"
     , compak_prefix);
 }
 
@@ -996,6 +996,7 @@ struct option long_options[] = {
   {"list",       no_argument,       0, 'l'           },
   {"update",     required_argument, 0, 'u'           },
   {"package",    required_argument, 0, 'p'           },
+  {"manifest",   required_argument, 0, 'm'           },
   {"clean",      no_argument,       0, OPT_CLEAN     },
   {"update-all", no_argument,       0, OPT_UPDATE_ALL},
   {0, 0, 0, 0}
@@ -1011,7 +1012,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  while((opt = getopt_long(argc, argv, "?i:r:lu:p:", long_options, NULL)) != -1) {
+  while((opt = getopt_long(argc, argv, "?i:r:lu:p:m:", long_options, NULL)) != -1) {
     switch(opt) {
       case 'i':
         if(geteuid() != 0) {
@@ -1058,8 +1059,11 @@ int main(int argc, char *argv[]) {
         }
         compak_clean();
         break;
+      case 'm':
+        manifest_file = optarg;
+        break;
       default:
-        return 1; 
+        return 1;
     }
   }
   return 0;
