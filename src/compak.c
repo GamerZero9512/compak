@@ -4,9 +4,6 @@
     +--------+
 
     minimal source-based package manager
-
-    TODO:
-      - Checksums
 */
 
 /* required for ftw for some reason */
