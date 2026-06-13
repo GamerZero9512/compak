@@ -708,7 +708,7 @@ void compak_package(const char *folder) {
   fflush(stdout);
 
   /* validate JSON */
-  snprintf(json_path, sizeof(json_path), "%s/%s", folder, manifest_file);
+  snprintf(json_path, sizeof(json_path), "%s/compak.json", folder);
   root = json_parse_file(json_path);
   if(!root) {
     fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, manifest_file);
