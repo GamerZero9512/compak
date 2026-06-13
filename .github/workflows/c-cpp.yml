@@ -52,6 +52,8 @@ jobs:
       run: |
            ./compak -l > packages.txt
            grep '^libhello:' packages.txt
+    - name: Check package viewing
+      run: ./compak --raw -v libhello | cmp - /var/lib/compak/libhello/compak.json
     - name: Remove package
       run: sudo ./compak -r libhello
     - name: Verify removal
