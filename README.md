@@ -15,8 +15,12 @@ options:
   --list,      -l           List installed packages
   --update,    -u <package> Update the specified package
   --update-all              Update all installed packages
+  --clean                   Remove compak temporary files
   --package,   -p <folder>  Pack folder into compak-ready archive
-  --manifest,  -m <file>    Set manifest file name for packaging
+    --manifest,  -m <file>  Set package manifest file name
+  --view,      -v <package> View info about a package
+    --raw                   View the raw package manifest
+    --simple                View a simple overview of the package
 ```
 
 To install compak, clone the source tree and run `make install`:
