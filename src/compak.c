@@ -962,6 +962,217 @@ void compak_clean(void) {
   closedir(dir);
 }
 
+enum {
+  OPT_UPDATE_ALL,
+  OPT_CLEAN,
+  OPT_VIEW_RAW,
+  OPT_VIEW_SIMPLE
+};
+
+int view_mode = OPT_VIEW_SIMPLE;
+
+void compak_view(const char *pkg_name) {
+  char buf[PATH_MAX];
+  JSON_Value *root;
+  JSON_Object *obj;
+  const char *description;
+  const char *name;
+  size_t i;
+  JSON_Object *install;
+  JSON_Array *bin;
+  JSON_Array *lib;
+  JSON_Array *include;
+  JSON_Object *man;
+  JSON_Array *man_c;
+  JSON_Value *source;
+
+  snprintf(buf, sizeof(buf), "/var/lib/compak/%s/compak.json", pkg_name);
+  
+  if(view_mode == OPT_VIEW_RAW) {
+    int ch;
+    FILE *stream = fopen(buf, "r");
+    if(!stream) {
+      fprintf(stderr, "%s: error opening '%s': %s\n", compak_prefix, buf, strerror(errno));
+      return;
+    }
+    while((ch = fgetc(stream)) != EOF) fputc(ch, stdout);
+    fclose(stream);
+    return;
+  }
+
+  root = json_parse_file(buf);
+  if(!root) {
+    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, buf);
+    return;
+  }
+  obj = json_value_get_object(root);
+  name = json_object_get_string(obj, "name");
+  if(!name) {
+    fprintf(stderr, "%s: missing name field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  description = json_object_get_string(obj, "description");
+  if(!description) description = "(no description)";
+
+  source = json_object_get_value(obj, "source");
+  if(!source) {
+    fprintf(stderr, "%s: missing 'source' field\n", compak_prefix);
+    return;
+  }
+  printf(
+    "%s:\n"
+    "  %s\n"
+    "  from: %s\n"
+    "\n"
+    "files:\n"
+    "  bin:\n"
+  , name, description, json_value_get_type(source) == JSONNull ? "local file" : json_value_get_string(source));
+  install = json_object_get_object(obj, "install");
+  if(!install) {
+    fprintf(stderr, "%s: missing install field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+
+  bin = json_object_get_array(install, "bin");
+  if(!bin) {
+    fprintf(stderr, "%s: missing 'bin' field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  for(i = 0; i < json_array_get_count(bin); i++) {
+    const char *str = json_array_get_string(bin, i);
+    printf("    %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/bin/" : "", str ? basename((char*)str) : "error getting item");
+  }
+  fputc('\n', stdout);
+
+  printf("  lib:\n");
+  lib = json_object_get_array(install, "lib");
+  if(!lib) {
+    fprintf(stderr, "%s: missing 'lib' field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  for(i = 0; i < json_array_get_count(lib); i++) {
+    const char *str = json_array_get_string(lib, i);
+    printf("    %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/lib/" : "", str ? basename((char*)str) : "error getting item");
+  }
+  fputc('\n', stdout);
+
+  printf("  include:\n");
+  include = json_object_get_array(install, "include");
+  if(!include) {
+    fprintf(stderr, "%s: missing 'include' field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+  for(i = 0; i < json_array_get_count(include); i++) {
+    const char *str = json_array_get_string(include, i);
+    printf("    %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/include/" : "", str ? basename((char*)str) : "error getting item");
+  }
+  fputc('\n', stdout);
+
+  printf("  manpages:\n");
+  man = json_object_get_object(install, "man");
+  if(!man) {
+    fprintf(stderr, "%s: missing 'man' field\n", compak_prefix);
+    json_value_free(root);
+    return;
+  }
+
+  man_c = json_object_get_array(man, "1");
+  if(man_c) {
+    printf("    1:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man1/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "2");
+  if(man_c) {
+    printf("    2:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man2/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "3");
+  if(man_c) {
+    printf("    3:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man3/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "4");
+  if(man_c) {
+    printf("    4:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man4/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "5");
+  if(man_c) {
+    printf("    5:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man5/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "6");
+  if(man_c) {
+    printf("    6:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man6/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "7");
+  if(man_c) {
+    printf("    7:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man7/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "8");
+  if(man_c) {
+    printf("    8:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man8/" : "", str ? basename((char*)str) : "error getting item");
+    }
+    fputc('\n', stdout);
+  }
+
+  man_c = json_object_get_array(man, "9");
+  if(man_c) {
+    printf("    9:\n");
+    for(i = 0; i < json_array_get_count(man_c); i++) {
+      const char *str = json_array_get_string(man_c, i);
+      printf("      %s -> %s%s\n", str ? str : "error getting item", str ? "/usr/local/share/man/man9/" : "", str ? basename((char*)str) : "error getting item");
+    }
+  }
+
+  json_value_free(root);
+}
+
 void compak_help(void) {
   printf(
     "compak: minimal source-based package manager\n"
@@ -977,25 +1188,28 @@ void compak_help(void) {
     "  --update-all              Update all installed packages\n"
     "  --clean                   Remove compak temporary files\n"
     "  --package,   -p <folder>  Pack folder into compak-ready archive\n"
-    "  --manifest,  -m <file>    Set manifest file name for packaging\n"
+    "    --manifest,  -m <file>  Set package manifest file name\n"
+    "  --view,      -v <package> View info about a package\n"
+    "    --raw                   View the raw package manifest\n"
+    "    --simple                View a simple overview of the package\n"
     , compak_prefix);
 }
 
-enum {
-  OPT_UPDATE_ALL,
-  OPT_CLEAN
-};
+/* ENUM HAS BEEN MOVED TO :965 */
 
 struct option long_options[] = {
-  {"help",       no_argument,       0, '?'           },
-  {"install",    required_argument, 0, 'i'           },
-  {"remove",     required_argument, 0, 'r'           },
-  {"list",       no_argument,       0, 'l'           },
-  {"update",     required_argument, 0, 'u'           },
-  {"package",    required_argument, 0, 'p'           },
-  {"manifest",   required_argument, 0, 'm'           },
-  {"clean",      no_argument,       0, OPT_CLEAN     },
-  {"update-all", no_argument,       0, OPT_UPDATE_ALL},
+  {"help",       no_argument,       0, '?'            },
+  {"install",    required_argument, 0, 'i'            },
+  {"remove",     required_argument, 0, 'r'            },
+  {"list",       no_argument,       0, 'l'            },
+  {"update",     required_argument, 0, 'u'            },
+  {"package",    required_argument, 0, 'p'            },
+  {"manifest",   required_argument, 0, 'm'            },
+  {"clean",      no_argument,       0, OPT_CLEAN      },
+  {"update-all", no_argument,       0, OPT_UPDATE_ALL },
+  {"view",       required_argument, 0, 'v'            },
+  {"raw",        no_argument,       0, OPT_VIEW_RAW   },
+  {"simple",     no_argument,       0, OPT_VIEW_SIMPLE},
   {0, 0, 0, 0}
 };
 
@@ -1009,7 +1223,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  while((opt = getopt_long(argc, argv, "?i:r:lu:p:m:", long_options, NULL)) != -1) {
+  while((opt = getopt_long(argc, argv, "?i:r:lu:p:m:v:", long_options, NULL)) != -1) {
     switch(opt) {
       case 'i':
         if(geteuid() != 0) {
@@ -1058,6 +1272,15 @@ int main(int argc, char *argv[]) {
         break;
       case 'm':
         manifest_file = optarg;
+        break;
+      case 'v':
+        compak_view(optarg);
+        break;
+      case OPT_VIEW_SIMPLE:
+        view_mode = OPT_VIEW_SIMPLE;
+        break;
+      case OPT_VIEW_RAW:
+        view_mode = OPT_VIEW_RAW;
         break;
       default:
         return 1;

@@ -10,6 +10,8 @@
     "bin": ["hello"],
     "lib": ["libhello.a"],
     "include": ["hello.h"],
-    "man": {}
+    "man": {
+      "1": ["libhello.1"]
+    }
   }
 }

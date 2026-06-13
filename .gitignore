@@ -2,3 +2,4 @@
 *.a
 compak
 curl
+*.tar.xz

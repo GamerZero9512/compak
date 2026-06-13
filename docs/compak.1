@@ -1,7 +1,7 @@
 .TH COMPAK 1 "June 2026" "compak" "User Commands"
 
 .SH NAME
-compak \- minimal source-based package manager
+compak - minimal source-based package manager
 
 .SH SYNOPSIS
 .B compak
@@ -44,9 +44,25 @@ Remove compak temporary files
 .BR --package ", " -p " " <folder>
 Pack folder into compak-ready archive
 
+.RS
 .TP
 .BR --manifest ", " -m " " <file>
-Set manifest file name for packaging
+Set package manifest file name
+.RE
+
+.TP
+.BR --view ", " -v " " <package>
+View info about a package
+
+.RS
+.TP
+.BR --raw
+View the raw package manifest
+
+.TP
+.BR --simple
+View a simple overview of the package
+.RE
 
 .SH AUTHOR
 GamerZero9512
