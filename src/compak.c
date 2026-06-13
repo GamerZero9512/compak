@@ -711,7 +711,7 @@ void compak_package(const char *folder) {
   snprintf(json_path, sizeof(json_path), "%s/compak.json", folder);
   root = json_parse_file(json_path);
   if(!root) {
-    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, manifest_file);
+    fprintf(stderr, "%s: failed to parse 'compak.json'\n", compak_prefix);
     return;
   }
   obj = json_value_get_object(root);
