@@ -30,8 +30,3 @@ install: compak
 	./compak -p .
 	sudo ./compak -i compak.tar.xz
 	rm compak.tar.xz
-
-debuginstall: debug
-	./compak -m debug.json -p .
-	sudo ./compak -i compak.tar.xz
-	rm compak.tar.xz

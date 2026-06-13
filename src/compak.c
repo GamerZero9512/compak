@@ -693,8 +693,6 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
   return 0;
 }
 
-char *manifest_file = "compak.json";
-
 void compak_package(const char *folder) {
   JSON_Value *root;
   JSON_Object *obj;
@@ -987,7 +985,7 @@ void compak_view(const char *pkg_name) {
   JSON_Value *source;
 
   snprintf(buf, sizeof(buf), "/var/lib/compak/%s/compak.json", pkg_name);
-  
+
   if(view_mode == OPT_VIEW_RAW) {
     int ch;
     FILE *stream = fopen(buf, "r");
@@ -1188,7 +1186,6 @@ void compak_help(void) {
     "  --update-all              Update all installed packages\n"
     "  --clean                   Remove compak temporary files\n"
     "  --package,   -p <folder>  Pack folder into compak-ready archive\n"
-    "    --manifest,  -m <file>  Set package manifest file name\n"
     "  --view,      -v <package> View info about a package\n"
     "    --raw                   View the raw package manifest\n"
     "    --simple                View a simple overview of the package\n"
@@ -1204,7 +1201,6 @@ struct option long_options[] = {
   {"list",       no_argument,       0, 'l'            },
   {"update",     required_argument, 0, 'u'            },
   {"package",    required_argument, 0, 'p'            },
-  {"manifest",   required_argument, 0, 'm'            },
   {"clean",      no_argument,       0, OPT_CLEAN      },
   {"update-all", no_argument,       0, OPT_UPDATE_ALL },
   {"view",       required_argument, 0, 'v'            },
@@ -1223,7 +1219,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-  while((opt = getopt_long(argc, argv, "?i:r:lu:p:m:v:", long_options, NULL)) != -1) {
+  while((opt = getopt_long(argc, argv, "?i:r:lu:p:v:", long_options, NULL)) != -1) {
     switch(opt) {
       case 'i':
         if(geteuid() != 0) {
@@ -1269,9 +1265,6 @@ int main(int argc, char *argv[]) {
           return 1;
         }
         compak_clean();
-        break;
-      case 'm':
-        manifest_file = optarg;
         break;
       case 'v':
         compak_view(optarg);
