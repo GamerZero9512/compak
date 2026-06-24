@@ -659,8 +659,14 @@ int pack_dir(struct archive *a, const char *base, const char *rel, const char *e
     /* validate excludes */
     regexes = json_array_get_count(regex);
     matches = 0;
-    for(i = 0; i < regexes; i++)
-      if(fnmatch(json_array_get_string(regex, i), arcpath, 0) == 0) matches = 1;
+    for(i = 0; i < regexes; i++) {
+      const char *string = json_array_get_string(regex, i);
+      if(!string) {
+        fprintf(stderr, "%s: error getting exclude pattern %zu", compak_prefix, i);
+        continue;
+      }
+      if(fnmatch(string, arcpath, 0) == 0) matches = 1;
+    }
     if(matches) continue;
     if(S_ISDIR(st.st_mode)) {
       struct archive_entry *dirent = archive_entry_new();
