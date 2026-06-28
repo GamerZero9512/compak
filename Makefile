@@ -15,16 +15,7 @@ debug: src/compak.c include/*.h lib/libarchive.a lib/libparson.a
 	$(CC) -fno-omit-frame-pointer src/compak.c -Iinclude -Llib $(SAFE) -Werror $(FLAGS) $(LIBS) -O0 -g3 -fsanitize=address,undefined,leak -o compak
 
 clean:
-	rm -f compak lib/libparson.a parson.o
-
-lib/libparson.a: parson.o
-	ar rcs lib/libparson.a parson.o
-
-parson.o: src/parson.c include/parson.h
-	$(CC) -c src/parson.c -Iinclude $(SAFE) -o parson.o
-
-solo: compak
-	rm -f parson.o lib/libparson.a
+	rm -f compak
 
 install: compak
 	./compak -p .

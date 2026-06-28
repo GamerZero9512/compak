@@ -30,6 +30,15 @@
 /* bump this if compatibility with
    older versions breaks completely */
 
+enum {
+  OPT_UPDATE_ALL,
+  OPT_CLEAN,
+  OPT_VIEW_RAW,
+  OPT_VIEW_SIMPLE,
+  OPT_LIST_NAME,
+  OPT_LIST_FULL
+};
+
 char *compak_prefix = NULL;
 
 int is_installed(const char *name) {
@@ -62,6 +71,8 @@ DIR *open_pkgreg(void) {
   return dir;
 }
 
+int list_mode = OPT_LIST_FULL;
+
 void compak_list_pkgs(void) {
   int pkg_count = 0;
   struct dirent *entry;
@@ -89,10 +100,13 @@ void compak_list_pkgs(void) {
     }
 
     obj = json_value_get_object(root);
-    description = json_object_get_string(obj, "description");
-
-    if(description) printf("%s: %s\n", entry->d_name, description);
-    else printf("%s: (no description)\n", entry->d_name);
+    if(list_mode == OPT_LIST_FULL) {
+      description = json_object_get_string(obj, "description");
+      if(description) printf("%s: %s\n", entry->d_name, description);
+      else printf("%s: (no description)\n", entry->d_name);
+    } else {
+      puts(entry->d_name);
+    }
     json_value_free(root);
     pkg_count++;
   }
@@ -437,18 +451,6 @@ void compak_install(const char *name) {
        install.lib[] ------> /usr/local/lib
        install.include[] --> /usr/local/include
        install.man.*[] ----> /usr/local/share/man
-  */
-
-  /* moved upwards:
-
-  snprintf(jsonpath, sizeof(jsonpath), "%s/compak.json", dir);
-  root = json_parse_file(jsonpath);
-  if(!root) {
-    fprintf(stderr, "%s: failed to parse '%s'\n", compak_prefix, jsonpath);
-    return;
-  }
-  obj = json_value_get_object(root);
-
   */
 
   /* verify we're on the right version of compak */
@@ -966,13 +968,6 @@ void compak_clean(void) {
   closedir(dir);
 }
 
-enum {
-  OPT_UPDATE_ALL,
-  OPT_CLEAN,
-  OPT_VIEW_RAW,
-  OPT_VIEW_SIMPLE
-};
-
 int view_mode = OPT_VIEW_SIMPLE;
 
 void compak_view(const char *pkg_name) {
@@ -1188,6 +1183,8 @@ void compak_help(void) {
     "  --install,   -i <package> Install the specified package\n"
     "  --remove,    -r <package> Uninstall the specified package\n"
     "  --list,      -l           List installed packages\n"
+    "    --name                  Display only package names\n"
+    "    --full                  Display package names and descriptions\n"
     "  --update,    -u <package> Update the specified package\n"
     "  --update-all              Update all installed packages\n"
     "  --clean                   Remove compak temporary files\n"
@@ -1198,13 +1195,15 @@ void compak_help(void) {
     , compak_prefix);
 }
 
-/* ENUM HAS BEEN MOVED TO :965 */
+/* ENUM HAS BEEN MOVED TO TOP */
 
 struct option long_options[] = {
   {"help",       no_argument,       0, '?'            },
   {"install",    required_argument, 0, 'i'            },
   {"remove",     required_argument, 0, 'r'            },
   {"list",       no_argument,       0, 'l'            },
+  {"name",       no_argument,       0, OPT_LIST_NAME  },
+  {"full",       no_argument,       0, OPT_LIST_FULL  },
   {"update",     required_argument, 0, 'u'            },
   {"package",    required_argument, 0, 'p'            },
   {"clean",      no_argument,       0, OPT_CLEAN      },
@@ -1215,7 +1214,7 @@ struct option long_options[] = {
   {0, 0, 0, 0}
 };
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
   int opt;
 
   compak_prefix = argv[0];
@@ -1244,6 +1243,12 @@ int main(int argc, char *argv[]) {
         break;
       case 'l':
         compak_list_pkgs();
+        break;
+      case OPT_LIST_NAME:
+        list_mode = OPT_LIST_NAME;
+        break;
+      case OPT_LIST_FULL:
+        list_mode = OPT_LIST_FULL;
         break;
       case '?':
         compak_help();
