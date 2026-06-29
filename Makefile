@@ -32,8 +32,8 @@ lib:
 # LIBS
 
 ifneq ($(PARSON),no)
-lib/parson.o: lib src/parson.c include/parson.h
-	$(CC) -c src/parson.c -Iinclude $(SAFE) $(FLAGS) -o lib/parson.o
+lib/parson.o: lib src/parson/parson.c include/parson.h
+	$(CC) -c src/parson/parson.c -Iinclude $(SAFE) $(FLAGS) -o lib/parson.o
 
 lib/libparson.a: lib lib/parson.o
 	ar rcs lib/libparson.a lib/parson.o
