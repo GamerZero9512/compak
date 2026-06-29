@@ -31,7 +31,7 @@ make install
 
 compak requires some libraries, so run this if you're on Debian:
 ```
-sudo apt update && sudo apt install -y openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4
+sudo apt update && sudo apt install openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4 libidn2-dev libbrotli-dev libnghttp2-dev libldap-dev
 ```
 
 compak uses these libraries:
