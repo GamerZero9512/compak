@@ -1,5 +1,5 @@
 # compak
-compak is a simple, minimal source-based package manager for Linux.
+compak is a simple, minimal source-based package manager for POSIX systems.
 
 ![last commit](https://img.shields.io/github/last-commit/gamerzero9512/compak?color=blue)
 [![MIT license](https://img.shields.io/badge/license-MIT-yellow)](https://raw.githubusercontent.com/GamerZero9512/compak/refs/heads/main/LICENSE)

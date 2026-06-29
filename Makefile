@@ -7,7 +7,7 @@ else
 	FLAGS ?= -O2
 endif
 
-LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl
+LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl -lzstd -lacl
 SAFE ?= -Wall -Wextra -pedantic
 
 .PHONY: all clean install
