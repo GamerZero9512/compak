@@ -1,0 +1,5 @@
+libarchive_fe/la-lafe_fnmatch.lo: libarchive_fe/lafe_fnmatch.c \
+ /usr/include/stdc-predef.h libarchive_fe/lafe_platform.h config.h
+/usr/include/stdc-predef.h:
+libarchive_fe/lafe_platform.h:
+config.h:
