@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y openssl gcc clang make libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev
+        sudo apt install -y openssl gcc clang make libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4
     - name: Make
       run: make DEBUG=yes CC=${{ matrix.compiler }}
     - name: Package test
