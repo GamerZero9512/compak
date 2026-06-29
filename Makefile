@@ -45,7 +45,7 @@ lib/libcurl.a: src/curl/configure # I can't be bothered to put EVERY libcurl sou
 lib/libarchive.a: src/libarchive/configure
 	@echo "========== COMPILING LIBARCHIVE =========="
 	cd src/libarchive
-	sh ./configure
+	sh ./configure --disable-maintainer-mode
 	make
 	cd ../..
 	cp src/libarchive/.libs/libarchive.a lib/libarchive.a
