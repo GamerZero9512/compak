@@ -25,16 +25,20 @@ install: compak
 	sudo ./compak -i compak.tar.xz
 	rm compak.tar.xz
 
+# Create the lib/ directory
+lib:
+	mkdir -p lib
+
 # LIBS
 
-lib/parson.o: src/parson.c include/parson.h
+lib/parson.o: lib src/parson.c include/parson.h
 	$(CC) -c src/parson.c -Iinclude $(SAFE) $(FLAGS) -o lib/parson.o
 
-lib/libparson.a: lib/parson.o
+lib/libparson.a: lib lib/parson.o
 	ar rcs lib/libparson.a lib/parson.o
 
 .ONESHELL:
-lib/libcurl.a: src/curl/configure # I can't be bothered to put EVERY libcurl source item in here
+lib/libcurl.a: lib src/curl/configure # I can't be bothered to put EVERY libcurl source item in here
 	@echo "========== COMPILING LIBCURL =========="
 	cd src/curl
 	sh ./configure --with-openssl
@@ -42,7 +46,7 @@ lib/libcurl.a: src/curl/configure # I can't be bothered to put EVERY libcurl sou
 	cd ../..
 	mv src/curl/lib/.libs/libcurl.a lib/libcurl.a
 
-lib/libarchive.a: src/libarchive/configure
+lib/libarchive.a: lib src/libarchive/configure
 	@echo "========== COMPILING LIBARCHIVE =========="
 	cd src/libarchive
 	sh ./configure --disable-maintainer-mode --enable-static --disable-shared
