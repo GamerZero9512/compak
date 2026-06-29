@@ -29,6 +29,11 @@ cd compak
 make install
 ```
 
+compak requires some libraries, so run this if you're on Debian:
+```
+sudo apt update && sudo apt install -y openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4
+```
+
 compak uses these libraries:
 - [libarchive](https://github.com/libarchive/libarchive)
 - [parson](https://github.com/kgabis/parson)

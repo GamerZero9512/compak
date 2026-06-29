@@ -117,7 +117,7 @@ am__append_4 = \
 	libarchive/archive_blake2s_ref.c \
 	libarchive/archive_blake2sp_ref.c
 
-#am__append_5 = libarchive/archive_disk_acl_linux.c
+am__append_5 = libarchive/archive_disk_acl_linux.c
 #am__append_6 = libarchive/archive_disk_acl_sunos.c
 #am__append_7 = libarchive/archive_disk_acl_darwin.c
 #am__append_8 = libarchive/archive_disk_acl_freebsd.c
@@ -334,8 +334,8 @@ am__dirstamp = $(am__leading_dot)dirstamp
 #	libarchive/filter_fork_windows.lo
 am__objects_2 = libarchive/archive_blake2s_ref.lo \
 	libarchive/archive_blake2sp_ref.lo
-#am__objects_3 =  \
-#	libarchive/archive_disk_acl_linux.lo
+am__objects_3 =  \
+	libarchive/archive_disk_acl_linux.lo
 #am__objects_4 =  \
 #	libarchive/archive_disk_acl_sunos.lo
 #am__objects_5 =  \
@@ -1158,7 +1158,7 @@ am__libarchive_test_SOURCES_DIST = libarchive/archive_acl.c \
 #	libarchive/test-filter_fork_windows.$(OBJEXT)
 am__objects_15 = libarchive/test-archive_blake2s_ref.$(OBJEXT) \
 	libarchive/test-archive_blake2sp_ref.$(OBJEXT)
-#am__objects_16 = libarchive/test-archive_disk_acl_linux.$(OBJEXT)
+am__objects_16 = libarchive/test-archive_disk_acl_linux.$(OBJEXT)
 #am__objects_17 = libarchive/test-archive_disk_acl_sunos.$(OBJEXT)
 #am__objects_18 = libarchive/test-archive_disk_acl_darwin.$(OBJEXT)
 #am__objects_19 = libarchive/test-archive_disk_acl_freebsd.$(OBJEXT)
@@ -2820,7 +2820,7 @@ LIBARCHIVE_VERSION_NUMBER = 3008008
 LIBARCHIVE_VERSION_STRING = 3.8.8
 LIBICONV = 
 LIBOBJS = 
-LIBS = -lcrypto -llz4 -lbz2  -lz  -llzma -lxml2
+LIBS = -lcrypto -lacl -lzstd -llz4 -lbz2  -lz  -llzma -lxml2
 LIBSREQUIRED = libcrypto
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIBXML2_PC_CFLAGS = -I/usr/include/libxml2

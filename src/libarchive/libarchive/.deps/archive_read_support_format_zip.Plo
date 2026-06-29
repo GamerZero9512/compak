@@ -84,7 +84,8 @@ libarchive/archive_read_support_format_zip.lo: \
  /usr/include/lzma/container.h /usr/include/lzma/stream_flags.h \
  /usr/include/lzma/block.h /usr/include/lzma/index.h \
  /usr/include/lzma/index_hash.h /usr/include/lzma/hardware.h \
- libarchive/archive.h /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/zstd.h /usr/include/zstd_errors.h libarchive/archive.h \
+ /usr/include/x86_64-linux-gnu/sys/stat.h \
  /usr/include/x86_64-linux-gnu/bits/stat.h \
  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
  /usr/include/x86_64-linux-gnu/bits/statx.h /usr/include/linux/stat.h \
@@ -245,6 +246,8 @@ config.h:
 /usr/include/lzma/index.h:
 /usr/include/lzma/index_hash.h:
 /usr/include/lzma/hardware.h:
+/usr/include/zstd.h:
+/usr/include/zstd_errors.h:
 libarchive/archive.h:
 /usr/include/x86_64-linux-gnu/sys/stat.h:
 /usr/include/x86_64-linux-gnu/bits/stat.h:

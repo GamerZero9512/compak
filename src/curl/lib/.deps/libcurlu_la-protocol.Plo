@@ -121,12 +121,14 @@ libcurlu_la-protocol.lo: protocol.c /usr/include/stdc-predef.h \
  ../include/curl/options.h ../include/curl/header.h \
  ../include/curl/websockets.h ../include/curl/mprintf.h \
  ../include/curl/typecheck-gcc.h protocol.h strcase.h dict.h file.h ftp.h \
- gopher.h http.h bufq.h dynhds.h curlx/dynbuf.h imap.h curl_ldap.h mqtt.h \
- pop3.h rtsp.h smb.h smtp.h telnet.h tftp.h ws.h vssh/ssh.h \
- ../lib/curl_setup.h ../lib/urldata.h ../lib/curl_setup.h \
- /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
- ../lib/curlx/timeval.h ../lib/curlx/timediff.h ../lib/asyn.h \
- ../lib/curl_addrinfo.h /usr/include/netdb.h /usr/include/rpc/netdb.h \
+ gopher.h http.h bufq.h dynhds.h curlx/dynbuf.h \
+ /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h imap.h curl_ldap.h mqtt.h pop3.h \
+ rtsp.h smb.h smtp.h telnet.h tftp.h ws.h vssh/ssh.h ../lib/curl_setup.h \
+ ../lib/urldata.h ../lib/curl_setup.h /usr/include/netinet/in.h \
+ /usr/include/x86_64-linux-gnu/bits/in.h ../lib/curlx/timeval.h \
+ ../lib/curlx/timediff.h ../lib/asyn.h ../lib/curl_addrinfo.h \
+ /usr/include/netdb.h /usr/include/rpc/netdb.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
  /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
@@ -308,6 +310,9 @@ http.h:
 bufq.h:
 dynhds.h:
 curlx/dynbuf.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 imap.h:
 curl_ldap.h:
 mqtt.h:

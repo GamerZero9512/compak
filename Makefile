@@ -7,7 +7,7 @@ else
 	FLAGS ?= -O2
 endif
 
-LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl -lzstd -lacl
+LIBS := -lcurl -larchive -lz -llzma -llz4 -lxml2 -lssl -lcrypto -lbz2 -lparson -lpsl -lzstd -lacl -lidn2 -lbrotlidec -lbrotlicommon -lnghttp2 -lldap -llber
 SAFE ?= -Wall -Wextra -pedantic
 
 .PHONY: all clean install
@@ -31,21 +31,26 @@ lib:
 
 # LIBS
 
+ifneq ($(PARSON),no)
 lib/parson.o: lib src/parson.c include/parson.h
 	$(CC) -c src/parson.c -Iinclude $(SAFE) $(FLAGS) -o lib/parson.o
 
 lib/libparson.a: lib lib/parson.o
 	ar rcs lib/libparson.a lib/parson.o
+endif
 
+ifneq ($(CURL),no)
 .ONESHELL:
-lib/libcurl.a: lib src/curl/configure # I can't be bothered to put EVERY libcurl source item in here
+lib/libcurl.a: lib src/curl/configure
 	@echo "========== COMPILING LIBCURL =========="
 	cd src/curl
 	sh ./configure --with-openssl
 	make
 	cd ../..
 	mv src/curl/lib/.libs/libcurl.a lib/libcurl.a
+endif
 
+ifneq ($(LIBARCHIVE),no)
 lib/libarchive.a: lib src/libarchive/configure
 	@echo "========== COMPILING LIBARCHIVE =========="
 	cd src/libarchive
@@ -53,3 +58,4 @@ lib/libarchive.a: lib src/libarchive/configure
 	make
 	cd ../..
 	mv src/libarchive/.libs/libarchive.a lib/libarchive.a
+endif

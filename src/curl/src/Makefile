@@ -615,9 +615,9 @@ LIBCURL_PC_CFLAGS =
 LIBCURL_PC_CFLAGS_PRIVATE = -DCURL_STATICLIB
 LIBCURL_PC_LDFLAGS_PRIVATE = 
 LIBCURL_PC_LIBS = 
-LIBCURL_PC_LIBS_PRIVATE = -lpsl -lssl -lcrypto -lssl -lcrypto -lz
+LIBCURL_PC_LIBS_PRIVATE = -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd -lbrotlidec -lz
 LIBCURL_PC_REQUIRES = 
-LIBCURL_PC_REQUIRES_PRIVATE = zlib,openssl,libpsl
+LIBCURL_PC_REQUIRES_PRIVATE = libidn2,zlib,libbrotlidec,libbrotlicommon,libzstd,openssl,libpsl,libnghttp2
 LIBOBJS = 
 
 # Prevent LIBS from being used for all link targets
@@ -646,7 +646,7 @@ PACKAGE_URL =
 PACKAGE_VERSION = -
 PATH_SEPARATOR = :
 PERL = /usr/bin/perl
-PKGCONFIG = no
+PKGCONFIG = /usr/bin/pkg-config
 RANLIB = ranlib
 RC = 
 SED = /usr/bin/sed
@@ -656,8 +656,8 @@ SHELL = /bin/bash
 SSHD = /usr/sbin/sshd
 SSL_BACKENDS = OpenSSL
 STRIP = strip
-SUPPORT_FEATURES = alt-svc AsynchDNS HSTS HTTPS-proxy IPv6 Largefile libz PSL SSL threadsafe TLS-SRP UnixSockets
-SUPPORT_PROTOCOLS = DICT FILE FTP FTPS GOPHER GOPHERS HTTP HTTPS IMAP IMAPS IPFS IPNS MQTT MQTTS POP3 POP3S RTSP SMTP SMTPS TELNET TFTP WS WSS
+SUPPORT_FEATURES = alt-svc AsynchDNS brotli HSTS HTTP2 HTTPS-proxy IDN IPv6 Largefile libz PSL SSL threadsafe TLS-SRP UnixSockets zstd
+SUPPORT_PROTOCOLS = DICT FILE FTP FTPS GOPHER GOPHERS HTTP HTTPS IMAP IMAPS IPFS IPNS LDAP LDAPS MQTT MQTTS POP3 POP3S RTSP SMTP SMTPS TELNET TFTP WS WSS
 TEST_NGHTTPX = nghttpx
 VERSION = -
 VERSIONNUM = 081500
@@ -913,7 +913,7 @@ curl_SOURCES = $(CURL_CFILES) $(CURL_HFILES) \
 	$(curlx_csrc) $(curlx_hsrc) $(am__append_4)
 #curl_SOURCES = $(am__append_4)
 curl_LDFLAGS = $(CURL_LDFLAGS_BIN) $(UNICODEFLAG)
-curl_LDADD = $(top_builddir)/lib/libcurl.la -lpsl -lssl -lcrypto -lssl -lcrypto -lz
+curl_LDADD = $(top_builddir)/lib/libcurl.la -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd -lbrotlidec -lz
 
 # if unit tests are enabled, build a static library to link them with
 noinst_LTLIBRARIES = libcurltool.la

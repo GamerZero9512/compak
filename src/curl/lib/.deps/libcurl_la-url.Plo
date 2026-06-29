@@ -159,18 +159,19 @@ libcurl_la-url.lo: url.c /usr/include/stdc-predef.h curl_setup.h \
  ../lib/curl_setup.h ../lib/curlx/timediff.h asyn.h curl_addrinfo.h \
  cookie.h llist.h creds.h psl.h /usr/include/libpsl.h formdata.h bufref.h \
  http_chunks.h curlx/dynbuf.h hostip.h hash.h peer.h proxy.h splay.h \
- dynhds.h request.h bufq.h ratelimit.h netrc.h vtls/vtls_config.h mime.h \
- protocol.h ftp.h http.h smb.h mqtt.h ftplistparser.h multihandle.h \
- conncache.h cshutdn.h dnscache.h multi_ev.h multi_ntfy.h uint-bset.h \
- socketpair.h uint-spbset.h uint-table.h cf-socket.h vtls/vtls.h \
- vssh/vssh.h transfer.h curl_trc.h progress.h strcase.h escape.h \
- curl_share.h curl_threads.h http_digest.h multiif.h getinfo.h pop3.h \
- urlapi-int.h ../include/curl/urlapi.h system_win32.h hsts.h cfilters.h \
- curlx/timediff.h idn.h http_proxy.h curlx/strdup.h setopt.h altsvc.h \
- headers.h curlx/strerr.h curlx/strparse.h dict.h telnet.h tftp.h \
- vauth/vauth.h ../lib/bufref.h ../lib/curlx/dynbuf.h ../lib/urldata.h \
- file.h curl_ldap.h vssh/ssh.h imap.h url.h connect.h gopher.h rtsp.h \
- smtp.h ws.h
+ dynhds.h /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h request.h bufq.h ratelimit.h netrc.h \
+ vtls/vtls_config.h mime.h protocol.h ftp.h http.h smb.h mqtt.h \
+ ftplistparser.h multihandle.h conncache.h cshutdn.h dnscache.h \
+ multi_ev.h multi_ntfy.h uint-bset.h socketpair.h uint-spbset.h \
+ uint-table.h cf-socket.h vtls/vtls.h vssh/vssh.h transfer.h curl_trc.h \
+ progress.h strcase.h escape.h curl_share.h curl_threads.h http_digest.h \
+ multiif.h getinfo.h pop3.h urlapi-int.h ../include/curl/urlapi.h \
+ system_win32.h hsts.h cfilters.h curlx/timediff.h idn.h http_proxy.h \
+ curlx/strdup.h setopt.h altsvc.h headers.h curlx/strerr.h \
+ curlx/strparse.h dict.h telnet.h tftp.h vauth/vauth.h ../lib/bufref.h \
+ ../lib/curlx/dynbuf.h ../lib/urldata.h file.h curl_ldap.h vssh/ssh.h \
+ imap.h url.h connect.h gopher.h rtsp.h smtp.h ws.h
 /usr/include/stdc-predef.h:
 curl_setup.h:
 curl_config.h:
@@ -394,6 +395,9 @@ peer.h:
 proxy.h:
 splay.h:
 dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 request.h:
 bufq.h:
 ratelimit.h:

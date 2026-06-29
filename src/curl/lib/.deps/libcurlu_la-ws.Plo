@@ -129,13 +129,14 @@ libcurlu_la-ws.lo: ws.c /usr/include/stdc-predef.h curl_setup.h \
  /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
  cookie.h llist.h creds.h psl.h /usr/include/libpsl.h formdata.h bufref.h \
  http_chunks.h curlx/dynbuf.h hostip.h hash.h peer.h proxy.h splay.h \
- dynhds.h request.h bufq.h ratelimit.h netrc.h vtls/vtls_config.h mime.h \
- protocol.h ftp.h http.h smb.h mqtt.h ftplistparser.h multihandle.h \
- conncache.h cshutdn.h dnscache.h multi_ev.h multi_ntfy.h uint-bset.h \
- socketpair.h uint-spbset.h uint-table.h cf-socket.h ws.h url.h rand.h \
- curlx/base64.h cf-recvbuf.h connect.h sendf.h curl_trc.h multiif.h \
- easyif.h transfer.h select.h /usr/include/poll.h \
- /usr/include/x86_64-linux-gnu/sys/poll.h \
+ dynhds.h /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h request.h bufq.h ratelimit.h netrc.h \
+ vtls/vtls_config.h mime.h protocol.h ftp.h http.h smb.h mqtt.h \
+ ftplistparser.h multihandle.h conncache.h cshutdn.h dnscache.h \
+ multi_ev.h multi_ntfy.h uint-bset.h socketpair.h uint-spbset.h \
+ uint-table.h cf-socket.h ws.h url.h rand.h curlx/base64.h cf-recvbuf.h \
+ connect.h sendf.h curl_trc.h multiif.h easyif.h transfer.h select.h \
+ /usr/include/poll.h /usr/include/x86_64-linux-gnu/sys/poll.h \
  /usr/include/x86_64-linux-gnu/bits/poll.h curlx/strparse.h \
  curlx/strcopy.h
 /usr/include/stdc-predef.h:
@@ -324,6 +325,9 @@ peer.h:
 proxy.h:
 splay.h:
 dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 request.h:
 bufq.h:
 ratelimit.h:

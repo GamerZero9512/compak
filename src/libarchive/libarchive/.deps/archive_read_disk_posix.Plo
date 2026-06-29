@@ -101,6 +101,7 @@ libarchive/archive_read_disk_posix.lo: \
  /usr/include/linux/fs.h /usr/include/linux/ioctl.h \
  /usr/lib/linux/uapi/x86/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
  /usr/include/linux/fscrypt.h /usr/include/linux/mount.h \
+ /usr/include/ext2fs/ext2_fs.h /usr/include/ext2fs/ext2_types.h \
  /usr/include/dirent.h /usr/include/x86_64-linux-gnu/bits/dirent.h \
  /usr/include/x86_64-linux-gnu/bits/dirent_ext.h /usr/include/errno.h \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
@@ -268,6 +269,8 @@ config.h:
 /usr/include/asm-generic/ioctl.h:
 /usr/include/linux/fscrypt.h:
 /usr/include/linux/mount.h:
+/usr/include/ext2fs/ext2_fs.h:
+/usr/include/ext2fs/ext2_types.h:
 /usr/include/dirent.h:
 /usr/include/x86_64-linux-gnu/bits/dirent.h:
 /usr/include/x86_64-linux-gnu/bits/dirent_ext.h:

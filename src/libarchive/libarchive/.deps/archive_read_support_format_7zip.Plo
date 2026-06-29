@@ -84,7 +84,8 @@ libarchive/archive_read_support_format_7zip.lo: \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h libarchive/archive.h \
+ /usr/include/linux/close_range.h /usr/include/zstd.h \
+ /usr/include/zstd_errors.h libarchive/archive.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
  /usr/include/x86_64-linux-gnu/bits/stat.h \
  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
@@ -220,6 +221,8 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 /usr/include/linux/close_range.h:
+/usr/include/zstd.h:
+/usr/include/zstd_errors.h:
 libarchive/archive.h:
 /usr/include/x86_64-linux-gnu/sys/stat.h:
 /usr/include/x86_64-linux-gnu/bits/stat.h:

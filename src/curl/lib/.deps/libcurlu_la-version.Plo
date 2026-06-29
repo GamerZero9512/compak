@@ -120,10 +120,11 @@ libcurlu_la-version.lo: version.c /usr/include/stdc-predef.h curl_setup.h \
  ../include/curl/curl.h ../include/curl/urlapi.h \
  ../include/curl/options.h ../include/curl/header.h \
  ../include/curl/websockets.h ../include/curl/mprintf.h \
- ../include/curl/typecheck-gcc.h urldata.h /usr/include/netinet/in.h \
- /usr/include/x86_64-linux-gnu/bits/in.h curlx/timeval.h \
- ../lib/curl_setup.h ../lib/curlx/timediff.h asyn.h curl_addrinfo.h \
- /usr/include/netdb.h /usr/include/rpc/netdb.h \
+ ../include/curl/typecheck-gcc.h /usr/include/nghttp2/nghttp2.h \
+ /usr/include/inttypes.h /usr/include/nghttp2/nghttp2ver.h urldata.h \
+ /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
+ curlx/timeval.h ../lib/curl_setup.h ../lib/curlx/timediff.h asyn.h \
+ curl_addrinfo.h /usr/include/netdb.h /usr/include/rpc/netdb.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
  /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
@@ -134,8 +135,11 @@ libcurlu_la-version.lo: version.c /usr/include/stdc-predef.h curl_setup.h \
  conncache.h cshutdn.h dnscache.h multi_ev.h multi_ntfy.h uint-bset.h \
  socketpair.h uint-spbset.h uint-table.h cf-socket.h vtls/vtls.h http2.h \
  vssh/ssh.h ../lib/urldata.h vquic/vquic.h easy_lock.h \
- /usr/lib/gcc/x86_64-linux-gnu/15/include/stdatomic.h /usr/include/zlib.h \
- /usr/include/zconf.h
+ /usr/lib/gcc/x86_64-linux-gnu/15/include/stdatomic.h /usr/include/idn2.h \
+ /usr/include/zlib.h /usr/include/zconf.h /usr/include/brotli/decode.h \
+ /usr/include/brotli/port.h /usr/include/brotli/shared_dictionary.h \
+ /usr/include/brotli/types.h /usr/include/zstd.h \
+ /usr/include/zstd_errors.h curl_ldap.h
 /usr/include/stdc-predef.h:
 curl_setup.h:
 curl_config.h:
@@ -293,6 +297,9 @@ curlx/warnless.h:
 ../include/curl/websockets.h:
 ../include/curl/mprintf.h:
 ../include/curl/typecheck-gcc.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 urldata.h:
 /usr/include/netinet/in.h:
 /usr/include/x86_64-linux-gnu/bits/in.h:
@@ -352,5 +359,13 @@ vssh/ssh.h:
 vquic/vquic.h:
 easy_lock.h:
 /usr/lib/gcc/x86_64-linux-gnu/15/include/stdatomic.h:
+/usr/include/idn2.h:
 /usr/include/zlib.h:
 /usr/include/zconf.h:
+/usr/include/brotli/decode.h:
+/usr/include/brotli/port.h:
+/usr/include/brotli/shared_dictionary.h:
+/usr/include/brotli/types.h:
+/usr/include/zstd.h:
+/usr/include/zstd_errors.h:
+curl_ldap.h:

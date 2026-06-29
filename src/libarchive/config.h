@@ -11,7 +11,7 @@
 /* #undef ARCHIVE_ACL_FREEBSD_NFS4 */
 
 /* Linux POSIX.1e ACL support via libacl */
-/* #undef ARCHIVE_ACL_LIBACL */
+#define ARCHIVE_ACL_LIBACL 1
 
 /* Linux NFSv4 ACL support via librichacl */
 /* #undef ARCHIVE_ACL_LIBRICHACL */
@@ -194,43 +194,43 @@
 /* #undef HAVE_ACL_ADD_FLAG_NP */
 
 /* Define to 1 if you have the 'acl_add_perm' function. */
-/* #undef HAVE_ACL_ADD_PERM */
+#define HAVE_ACL_ADD_PERM 1
 
 /* Define to 1 if you have the 'acl_clear_flags_np' function. */
 /* #undef HAVE_ACL_CLEAR_FLAGS_NP */
 
 /* Define to 1 if you have the 'acl_clear_perms' function. */
-/* #undef HAVE_ACL_CLEAR_PERMS */
+#define HAVE_ACL_CLEAR_PERMS 1
 
 /* Define to 1 if you have the 'acl_create_entry' function. */
-/* #undef HAVE_ACL_CREATE_ENTRY */
+#define HAVE_ACL_CREATE_ENTRY 1
 
 /* Define to 1 if you have the 'acl_delete_def_file' function. */
-/* #undef HAVE_ACL_DELETE_DEF_FILE */
+#define HAVE_ACL_DELETE_DEF_FILE 1
 
 /* Define to 1 if the system has the type 'acl_entry_t'. */
-/* #undef HAVE_ACL_ENTRY_T */
+#define HAVE_ACL_ENTRY_T 1
 
 /* Define to 1 if you have the 'acl_free' function. */
-/* #undef HAVE_ACL_FREE */
+#define HAVE_ACL_FREE 1
 
 /* Define to 1 if you have the 'acl_get_brand_np' function. */
 /* #undef HAVE_ACL_GET_BRAND_NP */
 
 /* Define to 1 if you have the 'acl_get_entry' function. */
-/* #undef HAVE_ACL_GET_ENTRY */
+#define HAVE_ACL_GET_ENTRY 1
 
 /* Define to 1 if you have the 'acl_get_entry_type_np' function. */
 /* #undef HAVE_ACL_GET_ENTRY_TYPE_NP */
 
 /* Define to 1 if you have the 'acl_get_fd' function. */
-/* #undef HAVE_ACL_GET_FD */
+#define HAVE_ACL_GET_FD 1
 
 /* Define to 1 if you have the 'acl_get_fd_np' function. */
 /* #undef HAVE_ACL_GET_FD_NP */
 
 /* Define to 1 if you have the 'acl_get_file' function. */
-/* #undef HAVE_ACL_GET_FILE */
+#define HAVE_ACL_GET_FILE 1
 
 /* Define to 1 if you have the 'acl_get_flagset_np' function. */
 /* #undef HAVE_ACL_GET_FLAGSET_NP */
@@ -242,58 +242,58 @@
 /* #undef HAVE_ACL_GET_LINK_NP */
 
 /* Define to 1 if you have the 'acl_get_perm' function. */
-/* #undef HAVE_ACL_GET_PERM */
+#define HAVE_ACL_GET_PERM 1
 
 /* Define to 1 if you have the 'acl_get_permset' function. */
-/* #undef HAVE_ACL_GET_PERMSET */
+#define HAVE_ACL_GET_PERMSET 1
 
 /* Define to 1 if you have the 'acl_get_perm_np' function. */
 /* #undef HAVE_ACL_GET_PERM_NP */
 
 /* Define to 1 if you have the 'acl_get_qualifier' function. */
-/* #undef HAVE_ACL_GET_QUALIFIER */
+#define HAVE_ACL_GET_QUALIFIER 1
 
 /* Define to 1 if you have the 'acl_get_tag_type' function. */
-/* #undef HAVE_ACL_GET_TAG_TYPE */
+#define HAVE_ACL_GET_TAG_TYPE 1
 
 /* Define to 1 if you have the 'acl_init' function. */
-/* #undef HAVE_ACL_INIT */
+#define HAVE_ACL_INIT 1
 
 /* Define to 1 if you have the 'acl_is_trivial_np' function. */
 /* #undef HAVE_ACL_IS_TRIVIAL_NP */
 
 /* Define to 1 if you have the <acl/libacl.h> header file. */
-/* #undef HAVE_ACL_LIBACL_H */
+#define HAVE_ACL_LIBACL_H 1
 
 /* Define to 1 if the system has the type 'acl_permset_t'. */
-/* #undef HAVE_ACL_PERMSET_T */
+#define HAVE_ACL_PERMSET_T 1
 
 /* Define to 1 if you have the 'acl_set_entry_type_np' function. */
 /* #undef HAVE_ACL_SET_ENTRY_TYPE_NP */
 
 /* Define to 1 if you have the 'acl_set_fd' function. */
-/* #undef HAVE_ACL_SET_FD */
+#define HAVE_ACL_SET_FD 1
 
 /* Define to 1 if you have the 'acl_set_fd_np' function. */
 /* #undef HAVE_ACL_SET_FD_NP */
 
 /* Define to 1 if you have the 'acl_set_file' function. */
-/* #undef HAVE_ACL_SET_FILE */
+#define HAVE_ACL_SET_FILE 1
 
 /* Define to 1 if you have the 'acl_set_link_np' function. */
 /* #undef HAVE_ACL_SET_LINK_NP */
 
 /* Define to 1 if you have the 'acl_set_qualifier' function. */
-/* #undef HAVE_ACL_SET_QUALIFIER */
+#define HAVE_ACL_SET_QUALIFIER 1
 
 /* Define to 1 if you have the 'acl_set_tag_type' function. */
-/* #undef HAVE_ACL_SET_TAG_TYPE */
+#define HAVE_ACL_SET_TAG_TYPE 1
 
 /* Define to 1 if the system has the type 'acl_t'. */
-/* #undef HAVE_ACL_T */
+#define HAVE_ACL_T 1
 
 /* Define to 1 if the system has the type 'acl_tag_t'. */
-/* #undef HAVE_ACL_TAG_T */
+#define HAVE_ACL_TAG_T 1
 
 /* Define to 1 if you have the 'arc4random_buf' function. */
 #define HAVE_ARC4RANDOM_BUF 1
@@ -465,7 +465,7 @@
 /* #undef HAVE_EXPAT_H */
 
 /* Define to 1 if you have the <ext2fs/ext2_fs.h> header file. */
-/* #undef HAVE_EXT2FS_EXT2_FS_H */
+#define HAVE_EXT2FS_EXT2_FS_H 1
 
 /* Define to 1 if you have the 'extattr_get_fd' function. */
 /* #undef HAVE_EXTATTR_GET_FD */
@@ -657,7 +657,7 @@
 #define HAVE_LGETXATTR 1
 
 /* Define to 1 if you have the 'acl' library (-lacl). */
-/* #undef HAVE_LIBACL */
+#define HAVE_LIBACL 1
 
 /* Define to 1 if you have the 'b2' library (-lb2). */
 /* #undef HAVE_LIBB2 */
@@ -729,7 +729,7 @@
 #define HAVE_LIBZ 1
 
 /* Define to 1 if you have the 'zstd' library (-lzstd). */
-/* #undef HAVE_LIBZSTD */
+#define HAVE_LIBZSTD 1
 
 /* Define to 1 if you have the <limits.h> header file. */
 #define HAVE_LIMITS_H 1
@@ -1124,7 +1124,7 @@
 #define HAVE_SYSCONF 1
 
 /* Define to 1 if you have the <sys/acl.h> header file. */
-/* #undef HAVE_SYS_ACL_H */
+#define HAVE_SYS_ACL_H 1
 
 /* Define to 1 if you have the <sys/cdefs.h> header file. */
 #define HAVE_SYS_CDEFS_H 1
@@ -1288,7 +1288,7 @@
 #define HAVE_WMEMMOVE 1
 
 /* Define to 1 if you have a working EXT2_IOC_GETFLAGS */
-/* #undef HAVE_WORKING_EXT2_IOC_GETFLAGS */
+#define HAVE_WORKING_EXT2_IOC_GETFLAGS 1
 
 /* Define to 1 if you have a working FS_IOC_GETFLAGS */
 #define HAVE_WORKING_FS_IOC_GETFLAGS 1
@@ -1297,14 +1297,14 @@
 #define HAVE_ZLIB_H 1
 
 /* Define to 1 if you have the <zstd.h> header file. */
-/* #undef HAVE_ZSTD_H */
+#define HAVE_ZSTD_H 1
 
 /* Define to 1 if you have the `zstd' library (-lzstd) with compression
    support. */
-/* #undef HAVE_ZSTD_compressStream */
+#define HAVE_ZSTD_compressStream 1
 
 /* Define to 1 if you have a `zstd' library version with ZSTD_minCLevel(). */
-/* #undef HAVE_ZSTD_minCLevel */
+#define HAVE_ZSTD_minCLevel 1
 
 /* Define to 1 if you have the '_fseeki64' function. */
 /* #undef HAVE__FSEEKI64 */
@@ -1319,7 +1319,7 @@
 #define ICONV_CONST 
 
 /* Libacl version coming from pkg-config. */
-/* #undef LIBACL_PKGCONFIG_VERSION */
+#define LIBACL_PKGCONFIG_VERSION "2.3.2"
 
 /* Version number of libarchive as a single integer */
 #define LIBARCHIVE_VERSION_NUMBER "3008008"
@@ -1328,7 +1328,7 @@
 #define LIBARCHIVE_VERSION_STRING "3.8.8"
 
 /* Libattr version coming from pkg-config. */
-/* #undef LIBATTR_PKGCONFIG_VERSION */
+#define LIBATTR_PKGCONFIG_VERSION "2.5.2"
 
 /* Libb2 version coming from pkg-config. */
 /* #undef LIBB2_PKGCONFIG_VERSION */

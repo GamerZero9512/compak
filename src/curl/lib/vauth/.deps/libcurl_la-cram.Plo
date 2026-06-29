@@ -132,14 +132,15 @@ vauth/libcurl_la-cram.lo: vauth/cram.c /usr/include/stdc-predef.h \
  /usr/include/libpsl.h ../lib/formdata.h ../lib/bufref.h \
  ../lib/http_chunks.h ../lib/curlx/dynbuf.h ../lib/hostip.h ../lib/hash.h \
  ../lib/peer.h ../lib/proxy.h ../lib/splay.h ../lib/dynhds.h \
- ../lib/request.h ../lib/bufq.h ../lib/ratelimit.h ../lib/netrc.h \
- ../lib/vtls/vtls_config.h ../lib/mime.h ../lib/protocol.h ../lib/ftp.h \
- ../lib/http.h ../lib/smb.h ../lib/mqtt.h ../lib/ftplistparser.h \
- ../lib/multihandle.h ../lib/conncache.h ../lib/cshutdn.h \
- ../lib/dnscache.h ../lib/multi_ev.h ../lib/multi_ntfy.h \
- ../lib/uint-bset.h ../lib/socketpair.h ../lib/uint-spbset.h \
- ../lib/uint-table.h ../lib/cf-socket.h ../lib/curl_hmac.h \
- ../lib/curl_md5.h ../lib/curl_hmac.h
+ /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h ../lib/request.h ../lib/bufq.h \
+ ../lib/ratelimit.h ../lib/netrc.h ../lib/vtls/vtls_config.h \
+ ../lib/mime.h ../lib/protocol.h ../lib/ftp.h ../lib/http.h ../lib/smb.h \
+ ../lib/mqtt.h ../lib/ftplistparser.h ../lib/multihandle.h \
+ ../lib/conncache.h ../lib/cshutdn.h ../lib/dnscache.h ../lib/multi_ev.h \
+ ../lib/multi_ntfy.h ../lib/uint-bset.h ../lib/socketpair.h \
+ ../lib/uint-spbset.h ../lib/uint-table.h ../lib/cf-socket.h \
+ ../lib/curl_hmac.h ../lib/curl_md5.h ../lib/curl_hmac.h
 /usr/include/stdc-predef.h:
 ../lib/curl_setup.h:
 ../lib/curl_config.h:
@@ -329,6 +330,9 @@ vauth/libcurl_la-cram.lo: vauth/cram.c /usr/include/stdc-predef.h \
 ../lib/proxy.h:
 ../lib/splay.h:
 ../lib/dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 ../lib/request.h:
 ../lib/bufq.h:
 ../lib/ratelimit.h:

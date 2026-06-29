@@ -120,7 +120,9 @@ libcurlu_la-dynhds.lo: dynhds.c /usr/include/stdc-predef.h curl_setup.h \
  ../include/curl/curl.h ../include/curl/urlapi.h \
  ../include/curl/options.h ../include/curl/header.h \
  ../include/curl/websockets.h ../include/curl/mprintf.h \
- ../include/curl/typecheck-gcc.h dynhds.h curlx/dynbuf.h strcase.h
+ ../include/curl/typecheck-gcc.h dynhds.h curlx/dynbuf.h \
+ /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h strcase.h
 /usr/include/stdc-predef.h:
 curl_setup.h:
 curl_config.h:
@@ -280,4 +282,7 @@ curlx/warnless.h:
 ../include/curl/typecheck-gcc.h:
 dynhds.h:
 curlx/dynbuf.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 strcase.h:

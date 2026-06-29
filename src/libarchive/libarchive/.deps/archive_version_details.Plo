@@ -82,6 +82,7 @@ libarchive/archive_version_details.lo: \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/lz4.h \
+ /usr/include/zstd.h /usr/include/zstd_errors.h \
  /usr/include/libxml2/libxml/xmlversion.h \
  /usr/include/libxml2/libxml/xmlexports.h /usr/include/openssl/opensslv.h \
  /usr/include/openssl/macros.h \
@@ -234,6 +235,8 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
 /usr/include/lz4.h:
+/usr/include/zstd.h:
+/usr/include/zstd_errors.h:
 /usr/include/libxml2/libxml/xmlversion.h:
 /usr/include/libxml2/libxml/xmlexports.h:
 /usr/include/openssl/opensslv.h:

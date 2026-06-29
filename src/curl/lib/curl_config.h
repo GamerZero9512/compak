@@ -91,10 +91,10 @@
 /* #undef CURL_DISABLE_KERBEROS_AUTH */
 
 /* to disable LDAP */
-#define CURL_DISABLE_LDAP 1
+/* #undef CURL_DISABLE_LDAP */
 
 /* to disable LDAPS */
-#define CURL_DISABLE_LDAPS 1
+/* #undef CURL_DISABLE_LDAPS */
 
 /* to disable --libcurl C code generation option */
 /* #undef CURL_DISABLE_LIBCURL_OPTION */
@@ -196,10 +196,10 @@
 #define HAVE_BOOL_T 1
 
 /* if BROTLI is in use */
-/* #undef HAVE_BROTLI */
+#define HAVE_BROTLI 1
 
 /* Define to 1 if you have the <brotli/decode.h> header file. */
-/* #undef HAVE_BROTLI_DECODE_H */
+#define HAVE_BROTLI_DECODE_H 1
 
 /* Define to 1 if you have the __builtin_available function. */
 /* #undef HAVE_BUILTIN_AVAILABLE */
@@ -338,7 +338,7 @@
 /* #undef HAVE_GSSGNU */
 
 /* Define to 1 if you have the <idn2.h> header file. */
-/* #undef HAVE_IDN2_H */
+#define HAVE_IDN2_H 1
 
 /* Define to 1 if you have the <ifaddrs.h> header file. */
 #define HAVE_IFADDRS_H 1
@@ -378,13 +378,13 @@
 /* #undef HAVE_IO_H */
 
 /* Define to 1 if you have the lber.h header file. */
-/* #undef HAVE_LBER_H */
+#define HAVE_LBER_H 1
 
 /* Define to 1 if you have the ldap.h header file. */
-/* #undef HAVE_LDAP_H */
+#define HAVE_LDAP_H 1
 
 /* Define to 1 if you have the `ldap_init_fd' function. */
-/* #undef HAVE_LDAP_INIT_FD */
+#define HAVE_LDAP_INIT_FD 1
 
 /* Use LDAPS implementation */
 #define HAVE_LDAP_SSL 1
@@ -393,16 +393,16 @@
 /* #undef HAVE_LDAP_SSL_H */
 
 /* Define to 1 if you have the `ldap_url_parse' function. */
-/* #undef HAVE_LDAP_URL_PARSE */
+#define HAVE_LDAP_URL_PARSE 1
 
 /* Define to 1 if you have the `brotlidec' library (-lbrotlidec). */
-/* #undef HAVE_LIBBROTLIDEC */
+#define HAVE_LIBBROTLIDEC 1
 
 /* Define to 1 if you have the <libgen.h> header file. */
 #define HAVE_LIBGEN_H 1
 
 /* Define to 1 if you have the `idn2' library (-lidn2). */
-/* #undef HAVE_LIBIDN2 */
+#define HAVE_LIBIDN2 1
 
 /* Define to 1 if you have the <libpsl.h> header file. */
 #define HAVE_LIBPSL_H 1
@@ -420,7 +420,7 @@
 #define HAVE_LIBZ 1
 
 /* Define to 1 if you have the `zstd' library (-lzstd). */
-/* #undef HAVE_LIBZSTD */
+#define HAVE_LIBZSTD 1
 
 /* Define to 1 if you have the <linux/tcp.h> header file. */
 #define HAVE_LINUX_TCP_H 1
@@ -465,7 +465,7 @@
 #define HAVE_NET_IF_H 1
 
 /* Define to 1 if you have the <nghttp2/nghttp2.h> header file. */
-/* #undef HAVE_NGHTTP2_NGHTTP2_H */
+#define HAVE_NGHTTP2_NGHTTP2_H 1
 
 /* Define to 1 if you have the <nghttp3/nghttp3.h> header file. */
 /* #undef HAVE_NGHTTP3_NGHTTP3_H */
@@ -729,10 +729,10 @@
 #define HAVE_WRITABLE_ARGV 1
 
 /* if libzstd is in use */
-/* #undef HAVE_ZSTD */
+#define HAVE_ZSTD 1
 
 /* Define to 1 if you have the <zstd.h> header file. */
-/* #undef HAVE_ZSTD_H */
+#define HAVE_ZSTD_H 1
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
@@ -842,7 +842,7 @@
 /* #undef USE_MBEDTLS */
 
 /* if nghttp2 is in use */
-/* #undef USE_NGHTTP2 */
+#define USE_NGHTTP2 1
 
 /* if nghttp3 is in use */
 /* #undef USE_NGHTTP3 */
@@ -851,7 +851,7 @@
 /* #undef USE_NGTCP2 */
 
 /* Use OpenLDAP-specific code */
-/* #undef USE_OPENLDAP */
+#define USE_OPENLDAP 1
 
 /* if OpenSSL is in use */
 #define USE_OPENSSL 1

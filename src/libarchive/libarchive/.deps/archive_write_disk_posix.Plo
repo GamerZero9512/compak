@@ -39,7 +39,7 @@ libarchive/archive_write_disk_posix.lo: \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
- /usr/include/x86_64-linux-gnu/sys/xattr.h \
+ /usr/include/sys/acl.h /usr/include/x86_64-linux-gnu/sys/xattr.h \
  /usr/include/x86_64-linux-gnu/sys/ioctl.h \
  /usr/include/x86_64-linux-gnu/bits/ioctls.h \
  /usr/lib/linux/uapi/x86/asm/ioctls.h /usr/include/asm-generic/ioctls.h \
@@ -78,6 +78,7 @@ libarchive/archive_write_disk_posix.lo: \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/linux/fs.h /usr/include/linux/limits.h \
  /usr/include/linux/fscrypt.h /usr/include/linux/mount.h \
+ /usr/include/ext2fs/ext2_fs.h /usr/include/ext2fs/ext2_types.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
@@ -166,6 +167,7 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+/usr/include/sys/acl.h:
 /usr/include/x86_64-linux-gnu/sys/xattr.h:
 /usr/include/x86_64-linux-gnu/sys/ioctl.h:
 /usr/include/x86_64-linux-gnu/bits/ioctls.h:
@@ -222,6 +224,8 @@ config.h:
 /usr/include/linux/limits.h:
 /usr/include/linux/fscrypt.h:
 /usr/include/linux/mount.h:
+/usr/include/ext2fs/ext2_fs.h:
+/usr/include/ext2fs/ext2_types.h:
 /usr/lib/gcc/x86_64-linux-gnu/15/include/limits.h:
 /usr/lib/gcc/x86_64-linux-gnu/15/include/syslimits.h:
 /usr/include/limits.h:

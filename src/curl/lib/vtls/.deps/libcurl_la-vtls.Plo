@@ -131,15 +131,16 @@ vtls/libcurl_la-vtls.lo: vtls/vtls.c /usr/include/stdc-predef.h \
  /usr/include/libpsl.h ../lib/formdata.h ../lib/bufref.h \
  ../lib/http_chunks.h ../lib/curlx/dynbuf.h ../lib/hostip.h ../lib/hash.h \
  ../lib/peer.h ../lib/proxy.h ../lib/splay.h ../lib/dynhds.h \
- ../lib/request.h ../lib/bufq.h ../lib/ratelimit.h ../lib/netrc.h \
- ../lib/vtls/vtls_config.h ../lib/mime.h ../lib/protocol.h ../lib/ftp.h \
- ../lib/http.h ../lib/smb.h ../lib/mqtt.h ../lib/ftplistparser.h \
- ../lib/multihandle.h ../lib/conncache.h ../lib/cshutdn.h \
- ../lib/dnscache.h ../lib/multi_ev.h ../lib/multi_ntfy.h \
- ../lib/uint-bset.h ../lib/socketpair.h ../lib/uint-spbset.h \
- ../lib/uint-table.h ../lib/cf-socket.h ../lib/cfilters.h \
- ../lib/curlx/timediff.h ../lib/vtls/vtls.h ../lib/vtls/vtls_int.h \
- ../lib/select.h /usr/include/poll.h \
+ /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h ../lib/request.h ../lib/bufq.h \
+ ../lib/ratelimit.h ../lib/netrc.h ../lib/vtls/vtls_config.h \
+ ../lib/mime.h ../lib/protocol.h ../lib/ftp.h ../lib/http.h ../lib/smb.h \
+ ../lib/mqtt.h ../lib/ftplistparser.h ../lib/multihandle.h \
+ ../lib/conncache.h ../lib/cshutdn.h ../lib/dnscache.h ../lib/multi_ev.h \
+ ../lib/multi_ntfy.h ../lib/uint-bset.h ../lib/socketpair.h \
+ ../lib/uint-spbset.h ../lib/uint-table.h ../lib/cf-socket.h \
+ ../lib/cfilters.h ../lib/curlx/timediff.h ../lib/vtls/vtls.h \
+ ../lib/vtls/vtls_int.h ../lib/select.h /usr/include/poll.h \
  /usr/include/x86_64-linux-gnu/sys/poll.h \
  /usr/include/x86_64-linux-gnu/bits/poll.h ../lib/vtls/vtls_scache.h \
  ../lib/vtls/keylog.h ../lib/vtls/openssl.h \
@@ -147,45 +148,44 @@ vtls/libcurl_la-vtls.lo: vtls/vtls.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/ossl_typ.h /usr/include/openssl/types.h \
- /usr/include/openssl/e_os2.h /usr/include/inttypes.h \
- /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
- /usr/include/openssl/ssl.h /usr/include/openssl/e_ostime.h \
- /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
- /usr/include/openssl/cryptoerr.h /usr/include/openssl/symhacks.h \
- /usr/include/openssl/cryptoerr_legacy.h /usr/include/openssl/core.h \
- /usr/include/openssl/comperr.h /usr/include/openssl/bio.h \
- /usr/include/openssl/bioerr.h /usr/include/openssl/x509.h \
- /usr/include/openssl/buffer.h /usr/include/openssl/buffererr.h \
- /usr/include/openssl/evp.h /usr/include/openssl/core_dispatch.h \
- /usr/include/openssl/indicator.h /usr/include/openssl/params.h \
- /usr/include/openssl/bn.h /usr/include/openssl/bnerr.h \
- /usr/include/openssl/evperr.h /usr/include/openssl/objects.h \
- /usr/include/openssl/obj_mac.h /usr/include/openssl/asn1.h \
- /usr/include/openssl/asn1err.h /usr/include/openssl/objectserr.h \
- /usr/include/openssl/ec.h /usr/include/openssl/ecerr.h \
- /usr/include/openssl/rsa.h /usr/include/openssl/rsaerr.h \
- /usr/include/openssl/dsa.h /usr/include/openssl/dh.h \
- /usr/include/openssl/dherr.h /usr/include/openssl/dsaerr.h \
- /usr/include/openssl/sha.h /usr/include/openssl/x509err.h \
- /usr/include/openssl/x509_vfy.h /usr/include/openssl/lhash.h \
- /usr/include/openssl/pkcs7.h /usr/include/openssl/pkcs7err.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/pem.h /usr/include/openssl/pemerr.h \
- /usr/include/openssl/hmac.h /usr/include/openssl/async.h \
- /usr/include/openssl/asyncerr.h /usr/include/openssl/ct.h \
- /usr/include/openssl/cterr.h /usr/include/openssl/sslerr.h \
- /usr/include/openssl/sslerr_legacy.h /usr/include/openssl/prov_ssl.h \
- /usr/include/openssl/ssl2.h /usr/include/openssl/ssl3.h \
- /usr/include/openssl/tls1.h /usr/include/openssl/dtls1.h \
- /usr/include/openssl/srtp.h /usr/include/openssl/quic.h \
- ../lib/vtls/gtls.h ../lib/vtls/wolfssl.h ../lib/vtls/schannel.h \
- ../lib/vtls/mbedtls.h ../lib/vtls/rustls.h ../lib/slist.h \
- ../lib/curl_trc.h ../lib/strcase.h ../lib/url.h ../lib/progress.h \
- ../lib/curlx/fopen.h ../lib/curlx/multibyte.h ../lib/curl_sha256.h \
- ../lib/curl_hmac.h ../lib/curlx/base64.h ../lib/curlx/inet_pton.h \
- ../lib/connect.h ../lib/setopt.h ../lib/curlx/strdup.h \
- ../lib/curlx/strcopy.h
+ /usr/include/openssl/e_os2.h /usr/include/openssl/safestack.h \
+ /usr/include/openssl/stack.h /usr/include/openssl/ssl.h \
+ /usr/include/openssl/e_ostime.h /usr/include/openssl/comp.h \
+ /usr/include/openssl/crypto.h /usr/include/openssl/cryptoerr.h \
+ /usr/include/openssl/symhacks.h /usr/include/openssl/cryptoerr_legacy.h \
+ /usr/include/openssl/core.h /usr/include/openssl/comperr.h \
+ /usr/include/openssl/bio.h /usr/include/openssl/bioerr.h \
+ /usr/include/openssl/x509.h /usr/include/openssl/buffer.h \
+ /usr/include/openssl/buffererr.h /usr/include/openssl/evp.h \
+ /usr/include/openssl/core_dispatch.h /usr/include/openssl/indicator.h \
+ /usr/include/openssl/params.h /usr/include/openssl/bn.h \
+ /usr/include/openssl/bnerr.h /usr/include/openssl/evperr.h \
+ /usr/include/openssl/objects.h /usr/include/openssl/obj_mac.h \
+ /usr/include/openssl/asn1.h /usr/include/openssl/asn1err.h \
+ /usr/include/openssl/objectserr.h /usr/include/openssl/ec.h \
+ /usr/include/openssl/ecerr.h /usr/include/openssl/rsa.h \
+ /usr/include/openssl/rsaerr.h /usr/include/openssl/dsa.h \
+ /usr/include/openssl/dh.h /usr/include/openssl/dherr.h \
+ /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
+ /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
+ /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
+ /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
+ /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
+ /usr/include/openssl/sslerr.h /usr/include/openssl/sslerr_legacy.h \
+ /usr/include/openssl/prov_ssl.h /usr/include/openssl/ssl2.h \
+ /usr/include/openssl/ssl3.h /usr/include/openssl/tls1.h \
+ /usr/include/openssl/dtls1.h /usr/include/openssl/srtp.h \
+ /usr/include/openssl/quic.h ../lib/vtls/gtls.h ../lib/vtls/wolfssl.h \
+ ../lib/vtls/schannel.h ../lib/vtls/mbedtls.h ../lib/vtls/rustls.h \
+ ../lib/slist.h ../lib/curl_trc.h ../lib/strcase.h ../lib/url.h \
+ ../lib/progress.h ../lib/curlx/fopen.h ../lib/curlx/multibyte.h \
+ ../lib/curl_sha256.h ../lib/curl_hmac.h ../lib/curlx/base64.h \
+ ../lib/curlx/inet_pton.h ../lib/connect.h ../lib/setopt.h \
+ ../lib/curlx/strdup.h ../lib/curlx/strcopy.h
 /usr/include/stdc-predef.h:
 ../lib/curl_setup.h:
 ../lib/curl_config.h:
@@ -372,6 +372,9 @@ vtls/libcurl_la-vtls.lo: vtls/vtls.c /usr/include/stdc-predef.h \
 ../lib/proxy.h:
 ../lib/splay.h:
 ../lib/dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 ../lib/request.h:
 ../lib/bufq.h:
 ../lib/ratelimit.h:
@@ -413,7 +416,6 @@ vtls/libcurl_la-vtls.lo: vtls/vtls.c /usr/include/stdc-predef.h \
 /usr/include/openssl/ossl_typ.h:
 /usr/include/openssl/types.h:
 /usr/include/openssl/e_os2.h:
-/usr/include/inttypes.h:
 /usr/include/openssl/safestack.h:
 /usr/include/openssl/stack.h:
 /usr/include/openssl/ssl.h:

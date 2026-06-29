@@ -129,11 +129,13 @@ libcurlu_la-curl_fopen.lo: curl_fopen.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
  cookie.h llist.h creds.h psl.h /usr/include/libpsl.h formdata.h bufref.h \
  http_chunks.h curlx/dynbuf.h hostip.h hash.h peer.h proxy.h splay.h \
- dynhds.h request.h bufq.h ratelimit.h netrc.h vtls/vtls_config.h mime.h \
- protocol.h ftp.h http.h smb.h mqtt.h ftplistparser.h multihandle.h \
- conncache.h cshutdn.h dnscache.h multi_ev.h multi_ntfy.h uint-bset.h \
- socketpair.h uint-spbset.h uint-table.h cf-socket.h rand.h curl_fopen.h \
- curlx/fopen.h ../lib/curlx/multibyte.h
+ dynhds.h /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h request.h bufq.h ratelimit.h netrc.h \
+ vtls/vtls_config.h mime.h protocol.h ftp.h http.h smb.h mqtt.h \
+ ftplistparser.h multihandle.h conncache.h cshutdn.h dnscache.h \
+ multi_ev.h multi_ntfy.h uint-bset.h socketpair.h uint-spbset.h \
+ uint-table.h cf-socket.h rand.h curl_fopen.h curlx/fopen.h \
+ ../lib/curlx/multibyte.h
 /usr/include/stdc-predef.h:
 curl_setup.h:
 curl_config.h:
@@ -320,6 +322,9 @@ peer.h:
 proxy.h:
 splay.h:
 dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
 request.h:
 bufq.h:
 ratelimit.h:

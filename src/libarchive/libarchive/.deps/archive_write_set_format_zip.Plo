@@ -86,7 +86,8 @@ libarchive/archive_write_set_format_zip.lo: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h libarchive/archive.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/zstd.h \
+ /usr/include/zstd_errors.h libarchive/archive.h \
  /usr/include/x86_64-linux-gnu/sys/stat.h \
  /usr/include/x86_64-linux-gnu/bits/stat.h \
  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
@@ -252,6 +253,8 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
+/usr/include/zstd.h:
+/usr/include/zstd_errors.h:
 libarchive/archive.h:
 /usr/include/x86_64-linux-gnu/sys/stat.h:
 /usr/include/x86_64-linux-gnu/bits/stat.h:

@@ -9,5 +9,5 @@ Version: 3.8.8
 Cflags: -I${includedir}
 Cflags.private: -DLIBARCHIVE_STATIC
 Libs: -L${libdir} -larchive
-Libs.private: -lcrypto -llz4 -lbz2  -lz  -llzma -lxml2
+Libs.private: -lcrypto -lacl -lzstd -llz4 -lbz2  -lz  -llzma -lxml2
 Requires.private: libcrypto

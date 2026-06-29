@@ -77,7 +77,8 @@ tar/bsdtar-write.o: tar/write.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
- /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/dirent.h \
+ /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+ /usr/include/acl/libacl.h /usr/include/sys/acl.h /usr/include/dirent.h \
  /usr/include/x86_64-linux-gnu/bits/dirent.h \
  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
@@ -199,6 +200,8 @@ libarchive/archive_entry.h:
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+/usr/include/acl/libacl.h:
+/usr/include/sys/acl.h:
 /usr/include/dirent.h:
 /usr/include/x86_64-linux-gnu/bits/dirent.h:
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:

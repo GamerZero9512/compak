@@ -17,7 +17,7 @@ old_library='libarchive_fe.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -lcrypto -llz4 -lbz2 -lz -llzma -lxml2'
+dependency_libs=' -lcrypto -lacl -lzstd -llz4 -lbz2 -lz -llzma -lxml2'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

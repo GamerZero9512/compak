@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libarchive.so.13'
+dlname=''
 
 # Names of this library.
-library_names='libarchive.so.13.8.8 libarchive.so.13 libarchive.so'
+library_names=''
 
 # The name of the static archive.
 old_library='libarchive.a'
@@ -17,7 +17,7 @@ old_library='libarchive.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -lcrypto -llz4 -lbz2 -lz -llzma -lxml2'
+dependency_libs=' -lcrypto -lacl -lzstd -llz4 -lbz2 -lz -llzma -lxml2'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

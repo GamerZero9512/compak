@@ -120,7 +120,25 @@ libcurlu_la-openldap.lo: openldap.c /usr/include/stdc-predef.h \
  ../include/curl/curl.h ../include/curl/urlapi.h \
  ../include/curl/options.h ../include/curl/header.h \
  ../include/curl/websockets.h ../include/curl/mprintf.h \
- ../include/curl/typecheck-gcc.h
+ ../include/curl/typecheck-gcc.h /usr/include/ldap.h /usr/include/lber.h \
+ /usr/include/lber_types.h /usr/include/ldap_cdefs.h \
+ /usr/include/ldap_features.h urldata.h /usr/include/netinet/in.h \
+ /usr/include/x86_64-linux-gnu/bits/in.h curlx/timeval.h \
+ ../lib/curl_setup.h ../lib/curlx/timediff.h asyn.h curl_addrinfo.h \
+ /usr/include/netdb.h /usr/include/rpc/netdb.h \
+ /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
+ /usr/include/x86_64-linux-gnu/bits/netdb.h /usr/include/arpa/inet.h \
+ cookie.h llist.h creds.h psl.h /usr/include/libpsl.h formdata.h bufref.h \
+ http_chunks.h curlx/dynbuf.h hostip.h hash.h peer.h proxy.h splay.h \
+ dynhds.h /usr/include/nghttp2/nghttp2.h /usr/include/inttypes.h \
+ /usr/include/nghttp2/nghttp2ver.h request.h bufq.h ratelimit.h netrc.h \
+ vtls/vtls_config.h mime.h protocol.h ftp.h http.h smb.h mqtt.h \
+ ftplistparser.h multihandle.h conncache.h cshutdn.h dnscache.h \
+ multi_ev.h multi_ntfy.h uint-bset.h socketpair.h uint-spbset.h \
+ uint-table.h cf-socket.h url.h sendf.h curl_trc.h vtls/vtls.h transfer.h \
+ curl_ldap.h curlx/base64.h cfilters.h curlx/timediff.h connect.h \
+ curl_sasl.h strcase.h
 /usr/include/stdc-predef.h:
 curl_setup.h:
 curl_config.h:
@@ -278,3 +296,75 @@ curlx/warnless.h:
 ../include/curl/websockets.h:
 ../include/curl/mprintf.h:
 ../include/curl/typecheck-gcc.h:
+/usr/include/ldap.h:
+/usr/include/lber.h:
+/usr/include/lber_types.h:
+/usr/include/ldap_cdefs.h:
+/usr/include/ldap_features.h:
+urldata.h:
+/usr/include/netinet/in.h:
+/usr/include/x86_64-linux-gnu/bits/in.h:
+curlx/timeval.h:
+../lib/curl_setup.h:
+../lib/curlx/timediff.h:
+asyn.h:
+curl_addrinfo.h:
+/usr/include/netdb.h:
+/usr/include/rpc/netdb.h:
+/usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
+/usr/include/x86_64-linux-gnu/bits/netdb.h:
+/usr/include/arpa/inet.h:
+cookie.h:
+llist.h:
+creds.h:
+psl.h:
+/usr/include/libpsl.h:
+formdata.h:
+bufref.h:
+http_chunks.h:
+curlx/dynbuf.h:
+hostip.h:
+hash.h:
+peer.h:
+proxy.h:
+splay.h:
+dynhds.h:
+/usr/include/nghttp2/nghttp2.h:
+/usr/include/inttypes.h:
+/usr/include/nghttp2/nghttp2ver.h:
+request.h:
+bufq.h:
+ratelimit.h:
+netrc.h:
+vtls/vtls_config.h:
+mime.h:
+protocol.h:
+ftp.h:
+http.h:
+smb.h:
+mqtt.h:
+ftplistparser.h:
+multihandle.h:
+conncache.h:
+cshutdn.h:
+dnscache.h:
+multi_ev.h:
+multi_ntfy.h:
+uint-bset.h:
+socketpair.h:
+uint-spbset.h:
+uint-table.h:
+cf-socket.h:
+url.h:
+sendf.h:
+curl_trc.h:
+vtls/vtls.h:
+transfer.h:
+curl_ldap.h:
+curlx/base64.h:
+cfilters.h:
+curlx/timediff.h:
+connect.h:
+curl_sasl.h:
+strcase.h:
