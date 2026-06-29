@@ -40,7 +40,7 @@ lib/libcurl.a: src/curl/configure # I can't be bothered to put EVERY libcurl sou
 	sh ./configure --with-openssl
 	make
 	cd ../..
-	cp src/curl/lib/.libs/libcurl.a lib/libcurl.a
+	mv src/curl/lib/.libs/libcurl.a lib/libcurl.a
 
 lib/libarchive.a: src/libarchive/configure
 	@echo "========== COMPILING LIBARCHIVE =========="
@@ -48,4 +48,4 @@ lib/libarchive.a: src/libarchive/configure
 	sh ./configure --disable-maintainer-mode
 	make
 	cd ../..
-	cp src/libarchive/.libs/libarchive.a lib/libarchive.a
+	mv src/libarchive/.libs/libarchive.a lib/libarchive.a
