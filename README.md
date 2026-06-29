@@ -13,6 +13,8 @@ options:
   --install,   -i <package> Install the specified package
   --remove,    -r <package> Uninstall the specified package
   --list,      -l           List installed packages
+    --name                  Display only package names
+    --full                  Display package names and descriptions
   --update,    -u <package> Update the specified package
   --update-all              Update all installed packages
   --clean                   Remove compak temporary files
