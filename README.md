@@ -24,6 +24,11 @@ options:
     --simple                View a simple overview of the package
 ```
 
+compak requires some libraries, so run this if you're on Debian:
+```
+sudo apt update && sudo apt install openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4 libidn2-dev libbrotli-dev libnghttp2-dev libldap-dev
+```
+
 To install compak, clone the source tree and run `make install`:
 ```
 git clone https://github.com/gamerzero9512/compak.git
@@ -31,10 +36,7 @@ cd compak
 make install
 ```
 
-compak requires some libraries, so run this if you're on Debian:
-```
-sudo apt update && sudo apt install openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4 libidn2-dev libbrotli-dev libnghttp2-dev libldap-dev
-```
+If this fails, please [open an issue](https://github.com/GamerZero9512/compak/issues/new) with the error details.
 
 compak uses these libraries:
 - [libarchive](https://github.com/libarchive/libarchive)

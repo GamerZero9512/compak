@@ -42,7 +42,7 @@ endif
 ifneq ($(CURL),no)
 .ONESHELL:
 lib/libcurl.a: lib src/curl/configure
-	@echo "========== COMPILING LIBCURL =========="
+	@echo "================== COMPILING CURL =================="
 	cd src/curl
 	sh ./configure --with-openssl
 	make
@@ -52,7 +52,7 @@ endif
 
 ifneq ($(LIBARCHIVE),no)
 lib/libarchive.a: lib src/libarchive/configure
-	@echo "========== COMPILING LIBARCHIVE =========="
+	@echo "=============== COMPILING LIBARCHIVE ==============="
 	cd src/libarchive
 	sh ./configure --disable-maintainer-mode --enable-static --disable-shared
 	make
