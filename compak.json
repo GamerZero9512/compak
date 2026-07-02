@@ -4,7 +4,7 @@
   "source": null,
   "compak-min": 1,
   "deps": [],
-  "exclude": [".git", ".gitignore", "compak", "compak.tar.xz", "tests", ".github", "lib/libparson.a", "parson.o"],
+  "exclude": [".git", ".gitignore", "compak", "compak.tar.xz", "tests", ".github", "*.a", "*.o"],
   "build": [["make", "clean", "all"]],
   "install": {
     "bin": ["compak"],
