@@ -82,6 +82,10 @@ jobs:
     # to build your code.
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y openssl gcc clang make libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4 libidn2-dev libbrotli-dev libnghttp2-dev libldap-dev
     - name: Build
       run: make DEBUG=yes
 
