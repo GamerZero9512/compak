@@ -44,7 +44,7 @@ ifneq ($(CURL),no)
 lib/libcurl.a: lib
 	@echo "================== COMPILING CURL =================="
 	cd src/curl
-	sh ./configure --with-openssl
+	sh ./configure --with-openssl --disable-shared --enable-static
 	make
 	cd ../..
 	mv src/curl/lib/.libs/libcurl.a lib/libcurl.a

@@ -83,7 +83,7 @@ jobs:
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
     - name: Build
-      run: make DEBUG=yes CC=${{ matrix.compiler }}
+      run: make DEBUG=yes
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
