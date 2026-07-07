@@ -219,7 +219,7 @@ CCDEPMODE = depmode=gcc3
 CFLAGS = -Werror-implicit-function-declaration -O2 -Wno-system-headers
 CFLAG_CURL_SYMBOL_HIDING = -fvisibility=hidden
 CLANG_TIDY = clang-tidy
-CONFIGURE_OPTIONS = " '--with-openssl'"
+CONFIGURE_OPTIONS = " '--with-openssl' '--enable-static'"
 CPP = gcc -E
 CPPFLAGS = -D_GNU_SOURCE
 CSCOPE = cscope

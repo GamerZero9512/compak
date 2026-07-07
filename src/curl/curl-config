@@ -175,7 +175,7 @@ while test "$#" -gt 0; do
     ;;
 
   --configure)
-    echo " '--with-openssl'"
+    echo " '--with-openssl' '--enable-static'"
     ;;
 
   *)

@@ -1,6 +1,6 @@
 # This is a generated file.  Do not edit.
 buildinfo.configure.tool: configure
-buildinfo.configure.args:  '--with-openssl'
+buildinfo.configure.args:  '--with-openssl' '--enable-static'
 buildinfo.host: x86_64-pc-linux-gnu
 buildinfo.host.cpu: x86_64
 buildinfo.host.os: linux-gnu

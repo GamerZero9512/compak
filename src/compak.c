@@ -300,7 +300,17 @@ void install_array(JSON_Array *arr, const char *src_dir, const char *dst_dir) {
 }
 
 int is_url(const char *s) {
-  return (strncmp(s, "http://", 7) == 0 || strncmp(s, "https://", 8) == 0);
+  /*
+     old, only http/s support
+     return (strncmp(s, "http://", 7) == 0 || strncmp(s, "https://", 8) == 0);
+
+     too permissive
+     return strstr(s, "://") ? 1 : 0;
+  */
+  CURLU *h = curl_url();
+  CURLUcode rc = curl_url_set(h, CURLUPART_URL, s, 0);
+  curl_url_cleanup(h);
+  return rc == CURLUE_OK;
 }
 
 void compak_install(const char *name) {

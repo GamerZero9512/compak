@@ -39,23 +39,26 @@ lib/libparson.a: lib lib/parson.o
 	ar rcs lib/libparson.a lib/parson.o
 endif
 
-ifneq ($(CURL),no)
 .ONESHELL:
+
+ifneq ($(CURL),no)
 lib/libcurl.a: lib
 	@echo "================== COMPILING CURL =================="
 	cd src/curl
-	sh ./configure --with-openssl --disable-shared --enable-static
+	sh ./configure --with-openssl --enable-static
+	make clean
 	make
 	cd ../..
-	mv src/curl/lib/.libs/libcurl.a lib/libcurl.a
+	cp src/curl/lib/.libs/libcurl.a lib/libcurl.a
 endif
 
 ifneq ($(LIBARCHIVE),no)
 lib/libarchive.a: lib
 	@echo "=============== COMPILING LIBARCHIVE ==============="
 	cd src/libarchive
-	sh ./configure --disable-maintainer-mode --enable-static --disable-shared
+	sh ./configure --disable-maintainer-mode --enable-static
+	make clean
 	make
 	cd ../..
-	mv src/libarchive/.libs/libarchive.a lib/libarchive.a
+	cp src/libarchive/.libs/libarchive.a lib/libarchive.a
 endif
