@@ -62,3 +62,10 @@ lib/libarchive.a: lib
 	cd ../..
 	cp src/libarchive/.libs/libarchive.a lib/libarchive.a
 endif
+
+clean-all: clean
+	cd src/curl
+	if [ -e Makefile ]; then make clean; fi
+	cd ../libarchive
+	if [ -e Makefile ]; then make clean; fi
+	cd ../..

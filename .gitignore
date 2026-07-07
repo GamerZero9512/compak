@@ -1,3 +1,7 @@
 compak
 *.tar.xz
 lib/*
+*.a
+*.o
+*.la
+*.lo
