@@ -25,6 +25,9 @@ install: compak
 	sudo ./compak -i compak.tar.xz
 	rm compak.tar.xz
 
+install-fast: compak
+	sudo sh -c "mkdir -p /usr/local /usr/local/bin /var/lib/compak /var/lib/compak/compak /usr/local/share /usr/local/share/man /usr/local/share/man/man1 && cp ./compak /usr/local/bin/compak && cp ./compak.json /var/lib/compak/compak/compak.json && cp ./docs/compak.1 /usr/local/share/man/man1/compak.1"
+
 # Create the lib/ directory
 lib:
 	mkdir -p lib
@@ -46,8 +49,8 @@ lib/libcurl.a: lib
 	@echo "================== COMPILING CURL =================="
 	cd src/curl
 	sh ./configure --with-openssl --enable-static
-	make clean
-	make
+	$(MAKE) clean
+	$(MAKE)
 	cd ../..
 	cp src/curl/lib/.libs/libcurl.a lib/libcurl.a
 endif
@@ -57,15 +60,15 @@ lib/libarchive.a: lib
 	@echo "=============== COMPILING LIBARCHIVE ==============="
 	cd src/libarchive
 	sh ./configure --disable-maintainer-mode --enable-static
-	make clean
-	make
+	$(MAKE) clean
+	$(MAKE)
 	cd ../..
 	cp src/libarchive/.libs/libarchive.a lib/libarchive.a
 endif
 
 clean-all: clean
 	cd src/curl
-	if [ -e Makefile ]; then make clean; fi
+	if [ -e Makefile ]; then $(MAKE) clean; fi
 	cd ../libarchive
-	if [ -e Makefile ]; then make clean; fi
+	if [ -e Makefile ]; then $(MAKE) clean; fi
 	cd ../..

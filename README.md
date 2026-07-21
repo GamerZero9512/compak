@@ -29,11 +29,11 @@ compak requires some libraries, so run this if you're on Debian:
 sudo apt update && sudo apt install openssl libarchive-dev libcurl4-openssl-dev libbz2-dev libpsl-dev automake autoconf libtool m4 libidn2-dev libbrotli-dev libnghttp2-dev libldap-dev
 ```
 
-To install compak, clone the source tree and run `make install`:
+To install compak, clone the source tree and run `make install-fast`:
 ```
 git clone https://github.com/gamerzero9512/compak.git
 cd compak
-make install
+make install-fast
 ```
 
 If this fails, please [open an issue](https://github.com/GamerZero9512/compak/issues/new) with the error details.

@@ -58,6 +58,7 @@ PATH: /mnt/c/D/dmd2/windows/bin64/
 PATH: /mnt/c/D/dmd2/windows/bin/
 PATH: /mnt/c/Program Files/GitHub CLI/
 PATH: /mnt/c/Program Files/PowerShell/7/
+PATH: /mnt/c/Users/josha/scoop/shims/
 PATH: /mnt/c/Users/josha/.cargo/bin/
 PATH: /mnt/c/Users/josha/AppData/Local/Microsoft/WindowsApps/
 PATH: /mnt/c/Users/josha/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0/LocalCache/local-packages/Python313/Scripts/
@@ -74,7 +75,6 @@ PATH: /mnt/c/Users/josha/Coding/Porth/porth/
 PATH: /mnt/c/Users/josha/Coding/Batch/makegen/
 PATH: /mnt/c/Users/josha/Coding/Porth/porth/std/
 PATH: /mnt/c/Users/josha/Coding/Tools/cloc/
-PATH: /mnt/c/Users/josha/AppData/Local/PowerToys/DSCModules/
 PATH: /mnt/c/Program Files/LLVM/bin/
 PATH: /mnt/c/Users/josha/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-8.1.1-full_build/bin/
 PATH: /mnt/c/Users/josha/AppData/Local/Microsoft/WinGet/Packages/zig.zig_Microsoft.Winget.Source_8wekyb3d8bbwe/zig-x86_64-windows-0.16.0/
@@ -85,6 +85,7 @@ PATH: /mnt/c/Users/josha/.local/bin/
 PATH: /mnt/c/Users/josha/Coding/Tools/btop/
 PATH: /mnt/c/Users/josha/AppData/Local/Microsoft/WinGet/Packages/sharkdp.hyperfine_Microsoft.Winget.Source_8wekyb3d8bbwe/hyperfine-v1.20.0-x86_64-pc-windows-msvc/
 PATH: /mnt/c/Users/josha/AppData/Local/Microsoft/WinGet/Packages/sharkdp.fd_Microsoft.Winget.Source_8wekyb3d8bbwe/fd-v10.4.2-x86_64-pc-windows-msvc/
+PATH: /mnt/c/Users/josha/AppData/Local/PowerToys/DSCModules/
 PATH: /snap/bin/
 PATH: /home/josha/.dotnet/tools/
 
@@ -147,7 +148,7 @@ configure:4647: found /usr/bin/gcc
 configure:4658: result: gcc
 configure:5011: checking for C compiler version
 configure:5020: gcc --version >&5
-gcc (Debian 15.2.0-14) 15.2.0
+gcc (Debian 15.2.0-17) 15.2.0
 Copyright (C) 2025 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -160,10 +161,10 @@ COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-linux-gnu/15/lto-wrapper
 OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
 OFFLOAD_TARGET_DEFAULT=1
 Target: x86_64-linux-gnu
-Configured with: ../src/configure -v --with-pkgversion='Debian 15.2.0-14' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/reproducible-path/gcc-15-15.2.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/reproducible-path/gcc-15-15.2.0/debian/tmp-gcn/usr --enable-offload-defaulted --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=3
+Configured with: ../src/configure -v --with-pkgversion='Debian 15.2.0-17' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/reproducible-path/gcc-15-15.2.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/reproducible-path/gcc-15-15.2.0/debian/tmp-gcn/usr --enable-offload-defaulted --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=3
 Thread model: posix
 Supported LTO compression algorithms: zlib zstd
-gcc version 15.2.0 (Debian 15.2.0-14) 
+gcc version 15.2.0 (Debian 15.2.0-17) 
 ... rest of stderr output deleted ...
 configure:5031: $? = 0
 configure:5020: gcc -V >&5
@@ -1392,7 +1393,7 @@ configure:28073: gcc -c -Werror-implicit-function-declaration -O2 -Wno-system-he
 configure:28073: $? = 0
 configure:28088: checking for SSL_set_quic_use_legacy_codepoint
 configure:28088: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE          conftest.c -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccBogBaK.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccLeatHT.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `SSL_set_quic_use_legacy_codepoint'
 collect2: error: ld returned 1 exit status
 configure:28088: $? = 1
@@ -1622,7 +1623,7 @@ configure: failed program was:
 configure:32296: result: no
 configure:32477: checking for LDAP libraries
 configure:32543: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE            conftest.c -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccZ23Vdi.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccwRwgOO.o: in function `main':
 conftest.c:(.text.startup+0x4): undefined reference to `ber_init'
 /usr/bin/x86_64-linux-gnu-ld.bfd: conftest.c:(.text.startup+0x18): undefined reference to `ldap_init'
 /usr/bin/x86_64-linux-gnu-ld.bfd: conftest.c:(.text.startup+0x20): undefined reference to `ldap_unbind'
@@ -1730,7 +1731,7 @@ configure: failed program was:
 | }
 | 
 configure:32543: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE            conftest.c -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cc8hT2Yx.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cckwz3ap.o: in function `main':
 conftest.c:(.text.startup+0x4): undefined reference to `ber_init'
 /usr/bin/x86_64-linux-gnu-ld.bfd: conftest.c:(.text.startup+0x18): undefined reference to `ldap_init'
 /usr/bin/x86_64-linux-gnu-ld.bfd: conftest.c:(.text.startup+0x20): undefined reference to `ldap_unbind'
@@ -1838,7 +1839,7 @@ configure: failed program was:
 | }
 | 
 configure:32543: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE            conftest.c -lldap -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccYDXR43.o: undefined reference to symbol 'ber_init@@OPENLDAP_2.200'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cc3xAvod.o: undefined reference to symbol 'ber_init@@OPENLDAP_2.200'
 /usr/bin/x86_64-linux-gnu-ld.bfd: /usr/lib/x86_64-linux-gnu/liblber.so.2: error adding symbols: DSO missing from command line
 collect2: error: ld returned 1 exit status
 configure:32543: $? = 1
@@ -6043,7 +6044,7 @@ configure:45032: checking for sys/types.h
 configure:45032: result: yes
 configure:45050: checking if sigsetjmp can be linked
 configure:45078: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cck4c4zM.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cclmRnKE.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `sigsetjmp'
 collect2: error: ld returned 1 exit status
 configure:45078: $? = 1
@@ -6312,7 +6313,7 @@ configure:46078: $? = 0
 configure:46078: result: yes
 configure:46084: checking for getpass_r
 configure:46084: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccdQUxLb.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccPofBEe.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `getpass_r'
 collect2: error: ld returned 1 exit status
 configure:46084: $? = 1
@@ -6528,7 +6529,7 @@ configure:46114: $? = 0
 configure:46114: result: yes
 configure:46120: checking for mach_absolute_time
 configure:46120: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccdiFj6k.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccf0cQum.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `mach_absolute_time'
 collect2: error: ld returned 1 exit status
 configure:46120: $? = 1
@@ -6840,7 +6841,7 @@ configure:47067: checking if strcasecmp might be used
 configure:47073: result: yes
 configure:47093: checking if strcmpi can be linked
 configure:47121: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccQ08iOZ.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccqBgIXZ.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `strcmpi'
 collect2: error: ld returned 1 exit status
 configure:47121: $? = 1
@@ -7063,7 +7064,7 @@ configure:47216: checking if strcmpi might be used
 configure:47229: result: no
 configure:47242: checking if stricmp can be linked
 configure:47270: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cc5yWfpL.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccv53Tt0.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `stricmp'
 collect2: error: ld returned 1 exit status
 configure:47270: $? = 1
@@ -7286,7 +7287,7 @@ configure:47365: checking if stricmp might be used
 configure:47378: result: no
 configure:47392: checking if memset_s can be linked
 configure:47420: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cc3q55yd.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnpXxFz.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `memset_s'
 collect2: error: ld returned 1 exit status
 configure:47420: $? = 1
@@ -7509,7 +7510,7 @@ configure:47516: checking if memset_s might be used
 configure:47529: result: no
 configure:47535: checking for memset_explicit
 configure:47535: gcc -o conftest -Werror-implicit-function-declaration -O2 -Wno-system-headers  -D_GNU_SOURCE                conftest.c -lnghttp2 -lidn2 -lldap -llber -lpsl -lssl -lcrypto -lssl -lcrypto -lzstd  -lbrotlidec  -lz  >&5
-/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccsqK4dD.o: in function `main':
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/cc22BC8Q.o: in function `main':
 conftest.c:(.text.startup+0x5): undefined reference to `memset_explicit'
 collect2: error: ld returned 1 exit status
 configure:47535: $? = 1
